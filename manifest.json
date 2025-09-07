@@ -1,8 +1,8 @@
 {
-  "name": "Z1CRAS Command Center",
-  "short_name": "Z1CRAS",
+  "name": "Z1CARS ADMIN PANEL",
+  "short_name": "Z1CARS",
   "description": "Admin panel for Z1CRAS Fleet and Booking Management.",
-  "start_url": "/admin.html",
+  "start_url": "/admin",
   "display": "standalone",
   "background_color": "#2C2A2A",
   "theme_color": "#B99768",
@@ -20,3 +20,4 @@
     }
   ]
 }
+
