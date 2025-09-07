@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Fleet | Z1CRAS - Luxury Car Rentals for UAE NRIs</title>
+    <meta name="description" content="Explore our premium fleet of luxury vehicles in Kerala tailored for UAE NRIs. Range Rover, BMW, Mercedes, and more.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Add Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* Your existing CSS styles remain exactly the same */
+        :root {
+            --sand: #E2C799;
+            --gold: #D4AF37;
+            --deep-blue: #1A3A5F;
+            --pearl-white: #F8F6F0;
+            --terracotta: #C17F56;
+            --emerald: #1E8C5E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--pearl-white);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* ... ALL YOUR EXISTING STYLES REMAIN UNCHANGED ... */
+        
+        /* Add some styles for loading and error states */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: var(--deep-blue);
+        }
+        
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #e74c3c;
+            font-size: 1.2rem;
+        }
+        
+        .no-vehicles {
+            text-align: center;
+            padding: 2rem;
+            color: var(--deep-blue);
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .contact-info {
+                display: none;
+            }
+            
+            .lang-toggle {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .vehicles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Same as index.html -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://i.ibb.co/hRKhMQgh/Whats-App-Image-2025-08-31-at-03-14-20-bc96ac1f-removebg-preview.png" alt="Z1CRAS Logo" class="logo">
+                <div>
+                    <div class="brand-name">Z1CRAS</div>
+                    <div class="tagline">Premium Car Rentals</div>
+                </div>
+                <div class="uae-indicator">
+                    <i class="fas fa-map-marker-alt"></i> UAE NRIs
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vehicles.html">Our Fleet</a></li>
+                <li><a href="book.html">Booking</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            
+            <div class="contact-info">
+                <a href="tel:+919645177177">
+                    <i class="fas fa-phone"></i> +91 96451 77177
+                </a>
+                <button class="lang-toggle">العربية</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Premium Fleet for UAE NRIs</h1>
+            <p>Experience luxury transportation in Kerala with our exclusive collection of premium vehicles</p>
+        </div>
+    </section>
+    
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search by vehicle name or brand...">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="brand">Brand</label>
+                    <select id="brand-filter">
+                        <option value="">All Brands</option>
+                        <option value="Range Rover">Range Rover</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Mercedes">Mercedes</option>
+                        <option value="Audi">Audi</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Porsche">Porsche</option>
+                        <option value="Mahindra">Mahindra</option>
+                        <option value="Maruti Suzuki">Maruti Suzuki</option>
+                        <option value="Honda">Honda</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="type">Vehicle Type</label>
+                    <select id="type-filter">
+                        <option value="">All Types</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Luxury">Luxury</option>
+                        <option value="Compact">Compact</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="price">Price Range</label>
+                    <select id="price-filter">
+                        <option value="">All Prices</option>
+                        <option value="0-20000">Under ₹20,000</option>
+                        <option value="20000-50000">₹20,000 - ₹50,000</option>
+                        <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                        <option value="100000">Above ₹1,00,000</option>
+                    </select>
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="btn-filter" onclick="filterVehicles()">Apply Filters</button>
+                    <button class="btn-reset" onclick="resetFilters()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Vehicles Section -->
+    <section class="vehicles-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Premium Fleet</h2>
+                <p>Luxury vehicles curated for UAE NRIs returning to Kerala</p>
+            </div>
+            
+            <div class="vehicles-grid" id="vehicles-grid">
+                <div class="loading">Loading vehicles...</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- NRI Special Offers Section -->
+    <section class="nri-special">
+        <div class="container">
+            <div class="section-title">
+                <h2>Special Offers for UAE NRIs</h2>
+                <p>Exclusive benefits designed for our valued customers from the UAE</p>
+            </div>
+            
+            <div class="nri-offers">
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Long-Term Discounts</h3>
+                    <p>Special rates for NRIs planning extended stays in Kerala</p>
+                    <a href="book.html" class="btn-offer">Learn More</a>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-plane-arrival"></i>
+                    </div>
+                    <h3>Airport Pickup</h3>
+                    <p>Complimentary airport transfer for bookings over 7 days</p>
+                    <a href="book.html" class="btn-offer">Learn More</a>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Welcome Package</h3>
+                    <p>Exclusive welcome package for first-time NRI customers</p>
+                    <a href="book.html" class="btn-offer">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer - Same as index.html -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Z1CRAS</h3>
+                    <p>Premium car rental service connecting UAE NRIs with luxury transportation in Kerala. Experience the best of both worlds.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="vehicles.html">Our Fleet</a></li>
+                        <li><a href="book.html">Booking</a></li>
+                        <li><a href="index.html#testimonials">Testimonials</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Services for NRIs</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Airport Transfers</a></li>
+                        <li><a href="#">Long-term Rentals</a></li>
+                        <li><a href="#">Chauffeur Services</a></li>
+                        <li><a href="#">Wedding Transportation</a></li>
+                        <li><a href="#">Business Travel</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Kerala Office:</strong><br>
+                            123 Luxury Avenue, Kochi, Kerala
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            +91 96451 77177
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email:</strong><br>
+                            z1cardeals@gmail.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Z1CRAS. All rights reserved. Designed for UAE NRIs returning to Kerala.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919645177177" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <script>
+        // Initialize Supabase
+        // REPLACE THESE WITH YOUR ACTUAL SUPABASE CREDENTIALS
+        const supabaseUrl = 'https://gvftyxvjdhnnkgiyyaaz.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2ZnR5eHZqZGhubmtnaXl5YWF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwOTU5MzgsImV4cCI6MjA3MjY3MTkzOH0.aj10QULHnPMvfyLoe4usbQ4HFB1dzWqbAmwAlghFmb0';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Variable to hold the vehicles data
+        let vehiclesData = [];
+        
+        // Function to generate vehicle cards (unchanged from your original)
+        function generateVehicleCards(vehicles) {
+            const grid = document.getElementById('vehicles-grid');
+            grid.innerHTML = '';
+            
+            vehicles.forEach(vehicle => {
+                const rateValue = parseInt(vehicle.rate.replace(/\D/g, ''));
+                const card = document.createElement('div');
+                card.className = 'vehicle-card';
+                
+                card.innerHTML = `
+                    <div class="vehicle-badge">${vehicle.tags}</div>
+                    <div class="vehicle-image">
+                        <img src="${vehicle.image}" alt="${vehicle.name}">
+                    </div>
+                    <div class="vehicle-details">
+                        <h3>${vehicle.name}</h3>
+                        <p>${vehicle.standardPackage} • ${vehicle.extraKm} extra</p>
+                        <div class="vehicle-specs">
+                            <div class="spec">
+                                <div class="spec-value">${vehicle.year}</div>
+                                <div class="spec-label">Year</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">${vehicle.type}</div>
+                                <div class="spec-label">Type</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">${vehicle.brand}</div>
+                                <div class="spec-label">Brand</div>
+                            </div>
+                        </div>
+                        <div class="vehicle-price">
+                            <div class="price">₹${rateValue.toLocaleString()} <span>/day</span></div>
+                            <a href="book.html?vehicle=${encodeURIComponent(vehicle.name)}" class="vehicle-cta">Book Now</a>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Function to filter vehicles (unchanged from your original)
+        function filterVehicles() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const brandFilter = document.getElementById('brand-filter').value;
+            const typeFilter = document.getElementById('type-filter').value;
+            const priceFilter = document.getElementById('price-filter').value;
+            
+            let filteredVehicles = vehiclesData.filter(vehicle => {
+                const matchesSearch = searchTerm === '' || 
+                                    vehicle.name.toLowerCase().includes(searchTerm) || 
+                                    vehicle.brand.toLowerCase().includes(searchTerm);
+                
+                const matchesBrand = brandFilter === '' || vehicle.brand === brandFilter;
+                const matchesType = typeFilter === '' || vehicle.type === typeFilter;
+                
+                const rateValue = parseInt(vehicle.rate.replace(/\D/g, ''));
+                let matchesPrice = true;
+                if (priceFilter !== '') {
+                    if (priceFilter === '0-20000') {
+                        matchesPrice = rateValue < 20000;
+                    } else if (priceFilter === '20000-50000') {
+                        matchesPrice = rateValue >= 20000 && rateValue < 50000;
+                    } else if (priceFilter === '50000-100000') {
+                        matchesPrice = rateValue >= 50000 && rateValue < 100000;
+                    } else if (priceFilter === '100000') {
+                        matchesPrice = rateValue >= 100000;
+                    }
+                }
+                
+                return matchesSearch && matchesBrand && matchesType && matchesPrice;
+            });
+            
+            generateVehicleCards(filteredVehicles);
+        }
+        
+        // Function to reset filters (unchanged from your original)
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('brand-filter').value = '';
+            document.getElementById('type-filter').value = '';
+            document.getElementById('price-filter').value = '';
+            generateVehicleCards(vehiclesData);
+        }
+        
+        // Function to fetch vehicles from Supabase
+        async function fetchVehicles() {
+            try {
+                const { data, error } = await supabase
+                    .from('vehicles')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) {
+                    console.error('Error fetching vehicles:', error);
+                    document.getElementById('vehicles-grid').innerHTML = '<div class="error">Error loading vehicles. Please try again later.</div>';
+                    return;
+                }
+                
+                if (!data || data.length === 0) {
+                    document.getElementById('vehicles-grid').innerHTML = '<div class="no-vehicles">No vehicles available at the moment.</div>';
+                    return;
+                }
+                
+                vehiclesData = data;
+                generateVehicleCards(vehiclesData);
+                
+                // Add event listeners for filters
+                document.getElementById('search-input').addEventListener('input', filterVehicles);
+                document.getElementById('brand-filter').addEventListener('change', filterVehicles);
+                document.getElementById('type-filter').addEventListener('change', filterVehicles);
+                document.getElementById('price-filter').addEventListener('change', filterVehicles);
+                
+            } catch (error) {
+                console.error('Error fetching vehicles:', error);
+                document.getElementById('vehicles-grid').innerHTML = '<div class="error">Error loading vehicles. Please try again later.</div>';
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchVehicles();
+        });
+    </script>
+</body>
+</html>

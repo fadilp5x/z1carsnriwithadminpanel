@@ -1,0 +1,22 @@
+{
+  "name": "Z1CRAS Command Center",
+  "short_name": "Z1CRAS",
+  "description": "Admin panel for Z1CRAS Fleet and Booking Management.",
+  "start_url": "/admin.html",
+  "display": "standalone",
+  "background_color": "#2C2A2A",
+  "theme_color": "#B99768",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://z1cars.in/logorembg.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://z1cars.in/logorembg.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

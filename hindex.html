@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z1CRAS | Premium Car Rentals for UAE NRIs in Kerala</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo img {
+            max-width: 200px;
+            height: auto;
+        }
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 3rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        .section p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .vehicle-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+        }
+        .vehicle-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .vehicle-card h3 {
+            color: #1e3c72;
+            padding: 1rem;
+            margin: 0;
+            font-size: 1.3rem;
+        }
+        .vehicle-card p {
+            color: #666;
+            padding: 0 1rem 1rem;
+            margin: 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .feature h4 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+        .testimonial {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #1e3c72;
+        }
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .testimonial h4 {
+            color: #1e3c72;
+            margin: 0;
+        }
+        .cta {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin: 2rem 0;
+            border-radius: 10px;
+        }
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #ff5252;
+        }
+        .nav {
+            background: #1e3c72;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .nav li {
+            margin: 0 1rem;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav a:hover {
+            color: #ff6b6b;
+        }
+        .nav a.active {
+            color: #ff6b6b;
+        }
+        .contact-info {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .contact-info a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #ff6b6b;
+            background: #fff5f5;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vehicles.html">Our Fleet</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="tel:+919645177177">+91 96451 77177</a></li>
+                <li><a href="#">العربية</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="https://i.ibb.co/hRKhMQgh/Whats-App-Image-2025-08-31-at-03-14-20-bc96ac1f-removebg-preview.png" alt="Z1CRAS Logo">
+            </div>
+            <h1>Luxury Car Rentals for UAE NRIs in Kerala</h1>
+            <p>Experience premium service with our exclusive fleet as you return home to Kerala</p>
+        </div>
+    </div>
+
+    <!-- Featured Vehicles Section -->
+    <div class="container">
+        <div class="section">
+            <h2>Premium Fleet for Discerning Travelers</h2>
+            <p>Our luxury vehicles combine comfort, style, and performance</p>
+            
+            <div class="vehicle-grid" id="featured-vehicles">
+                <!-- Vehicles will be loaded here from Supabase -->
+                <div class="loading">Loading vehicles...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose Us Section -->
+    <div class="container">
+        <div class="section">
+            <h2>Connecting UAE NRIs with Premium Kerala Experiences</h2>
+            <p>We understand the unique needs of NRIs returning from UAE to Kerala</p>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <img src="https://images.unsplash.com/photo-1554224712-d8560f709cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="UAE-Kerala Connection" style="max-width: 100%; border-radius: 10px;">
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                <h3 style="color: #1e3c72; text-align: center; margin-bottom: 1rem;">Your Trusted Partner for Kerala Visits</h3>
+                <p style="text-align: center; margin-bottom: 2rem;">At Z1CRAS, we specialize in providing premium car rental services tailored for UAE-based NRIs returning to Kerala. Our fleet of luxury vehicles ensures you travel in comfort and style as you reconnect with your roots.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <h4>Dual Presence</h4>
+                        <p>Kerala roots with UAE service standards</p>
+                    </div>
+                    <div class="feature">
+                        <h4>Flexible Booking</h4>
+                        <p>Plan from UAE, execute in Kerala</p>
+                    </div>
+                    <div class="feature">
+                        <h4>NRI-Focused Service</h4>
+                        <p>Designed for your unique travel patterns</p>
+                    </div>
+                    <div class="feature">
+                        <h4>Multilingual Support</h4>
+                        <p>English, Arabic, and Malayalam assistance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="container">
+        <div class="section">
+            <h2>What UAE NRIs Say About Us</h2>
+            <p>Hear from our satisfied customers from across the UAE</p>
+            
+            <div class="testimonial">
+                <p>"Z1CRAS made our Kerala vacation exceptional. The Range Rover was perfect for our family, and the service was as premium as we're used to in Dubai. Highly recommended for UAE NRIs!"</p>
+                <h4>Ahmed Khan</h4>
+                <p>Dubai, UAE</p>
+            </div>
+            
+            <div class="testimonial">
+                <p>"Booking from Abu Dhabi was seamless. The team understood our needs as NRIs and delivered a flawless experience. The BMW was immaculate and made our Kerala trip memorable."</p>
+                <h4>Fatima Salim</h4>
+                <p>Abu Dhabi, UAE</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="container">
+        <div class="cta">
+            <h2>Ready to Experience Premium Car Rental in Kerala?</h2>
+            <p>Book your luxury vehicle today and travel in style during your Kerala visit</p>
+            <a href="book.html" class="btn">Book Your Vehicle Now</a>
+        </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="container">
+        <div class="contact-info">
+            <p><strong>Contact:</strong> <a href="tel:+919645177177">+91 96451 77177</a></p>
+            <p><strong>Email:</strong> <a href="mailto:info@z1cars.com">info@z1cars.com</a></p>
+            <p><strong>Location:</strong> Kochi, Kerala, India</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #1e3c72; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2023 Z1CRAS. All Rights Reserved.</p>
+            <p>Premium Car Rentals for UAE NRIs in Kerala</p>
+        </div>
+    </footer>
+
+    <!-- Configuration and Scripts -->
+    <script src="config.js"></script>
+    <script>
+        // Initialize Supabase
+        const supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!-- Featured Vehicles Section -->
+    <section class="featured-vehicles" id="fleet">
+        <div class="container">
+            <div class="section-title">
+                <h2>Premium Fleet for Discerning Travelers</h2>
+                <p>Our luxury vehicles combine comfort, style, and performance</p>
+            </div>
+            
+            <div class="vehicles-grid">
+                <div class="vehicle-card">
+                    <div class="vehicle-badge">Premium SUV</div>
+                    <div class="vehicle-image">
+                        <img src="https://i.ibb.co/C5L5T19y/DEF-26-MY-TROPHY-EDITION-GREEN-190625-02b.jpg" alt="Range Rover Defender">
+                    </div>
+                    <div class="vehicle-details">
+                        <h3>Range Rover Defender</h3>
+                        <p>The perfect blend of luxury and rugged capability for Kerala's diverse terrains</p>
+                        <div class="vehicle-price">
+                            <div class="price">₹70,000 <span>/day</span></div>
+                            <a href="book.html" class="vehicle-cta">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vehicle-card">
+                    <div class="vehicle-badge">Luxury SUV</div>
+                    <div class="vehicle-image">
+                        <img src="https://i.ibb.co/8nMM7tq7/X5.png" alt="BMW X5">
+                    </div>
+                    <div class="vehicle-details">
+                        <h3>BMW X5</h3>
+                        <p>Experience ultimate comfort and performance on Kerala's scenic routes</p>
+                        <div class="vehicle-price">
+                            <div class="price">₹20,000 <span>/day</span></div>
+                            <a href="book.html" class="vehicle-cta">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vehicle-card">
+                    <div class="vehicle-badge">Executive Class</div>
+                    <div class="vehicle-image">
+                        <img src="https://i.ibb.co/twDq3Z4S/Medium-42481-23-C0118004.jpg" alt="Mercedes-Benz GLS">
+                    </div>
+                    <div class="vehicle-details">
+                        <h3>Mercedes-Benz GLS</h3>
+                        <p>Spacious luxury for family travels across Kerala</p>
+                        <div class="vehicle-price">
+                            <div class="price">₹30,000 <span>/day</span></div>
+                            <a href="book.html" class="vehicle-cta">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

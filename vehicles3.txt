@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Fleet | Z1CRAS - Luxury Car Rentals for UAE NRIs</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .nav {
+            background: #1e3c72;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .nav li {
+            margin: 0 1rem;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav a:hover {
+            color: #ff6b6b;
+        }
+        .nav a.active {
+            color: #ff6b6b;
+        }
+        .filters {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .filters h3 {
+            margin-top: 0;
+            color: #1e3c72;
+        }
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filter-group select,
+        .filter-group input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .filter-group button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .filter-group button:hover {
+            background: #ff5252;
+        }
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .vehicle-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+        }
+        .vehicle-image {
+            position: relative;
+        }
+        .vehicle-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .vehicle-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .vehicle-details {
+            padding: 1.5rem;
+        }
+        .vehicle-details h3 {
+            color: #1e3c72;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+        .vehicle-details p {
+            color: #666;
+            margin: 0 0 1rem 0;
+        }
+        .vehicle-specs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .spec {
+            text-align: center;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .spec-value {
+            font-weight: 600;
+            color: #1e3c72;
+            font-size: 0.9rem;
+        }
+        .spec-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .vehicle-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+        .price span {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 400;
+        }
+        .vehicle-actions {
+            display: flex;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .vehicle-cta {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+        .vehicle-cta:hover {
+            background: #ff5252;
+        }
+        .whatsapp-cta {
+            background: #25D366;
+            color: white;
+            padding: 0.6rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            flex: 1;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .whatsapp-cta:hover {
+            background: #20BA5A;
+        }
+        .whatsapp-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        .special-offers {
+            background: white;
+            margin: 2rem 0;
+            padding: 3rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .offer-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .offer-icon {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        .offer-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+        .offer-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .btn-tertiary {
+            background: #1e3c72;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        .btn-tertiary:hover {
+            background: #2a5298;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #ff6b6b;
+            background: #fff5f5;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        .no-vehicles {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .vehicle-specs {
+                grid-template-columns: 1fr;
+            }
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+            .vehicle-price {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 0.75rem;
+            }
+            .vehicle-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .vehicle-cta, .whatsapp-cta {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vehicles.html" class="active">Our Fleet</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="tel:+919645177177">+91 96451 77177</a></li>
+                <li><a href="#">العربية</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1>Our Premium Fleet</h1>
+            <p>Experience luxury transportation in Kerala with our exclusive collection of premium vehicles</p>
+        </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="container">
+        <div class="filters">
+            <h3>Find Your Perfect Vehicle</h3>
+            <div class="filter-group">
+                <input type="text" id="search-input" placeholder="Search vehicles...">
+                <select id="brand-filter">
+                    <option value="">All Brands</option>
+                    <option value="Range Rover">Range Rover</option>
+                    <option value="Porsche">Porsche</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Mercedes">Mercedes</option>
+                    <option value="Audi">Audi</option>
+                    <option value="Mahindra">Mahindra</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Maruti Suzuki">Maruti Suzuki</option>
+                    <option value="Honda">Honda</option>
+                </select>
+                <select id="type-filter">
+                    <option value="">All Types</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Compact">Compact</option>
+                </select>
+                <select id="price-filter">
+                    <option value="">All Prices</option>
+                    <option value="0-20000">Under ₹20,000</option>
+                    <option value="20000-50000">₹20,000 - ₹50,000</option>
+                    <option value="50000-100000">₹50,000 - ₹100,000</option>
+                    <option value="100000">Above ₹100,000</option>
+                </select>
+                <button id="reset-filters">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vehicles Section -->
+    <div class="container">
+        <div class="vehicle-grid" id="vehicles-grid">
+            <!-- Vehicles will be loaded here from Supabase -->
+            <div class="loading">Loading vehicles...</div>
+        </div>
+    </div>
+
+    <!-- Special Offers Section -->
+    <div class="container">
+        <div class="special-offers">
+            <div class="container">
+                <h2 style="text-align: center; color: #1e3c72; margin-bottom: 1rem;">Special Offers for UAE NRIs</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 2rem;">Exclusive benefits designed for our valued customers from the UAE</p>
+                
+                <div class="offers-grid">
+                    <div class="offer-card">
+                        <div class="offer-icon">🎯</div>
+                        <h3>Long-Term Discounts</h3>
+                        <p>Special rates for NRIs planning extended stays in Kerala</p>
+                        <a href="#" class="btn-tertiary">Learn More</a>
+                    </div>
+                    
+                    <div class="offer-card">
+                        <div class="offer-icon">✈️</div>
+                        <h3>Airport Pickup</h3>
+                        <p>Complimentary airport transfer for bookings over 7 days</p>
+                        <a href="#" class="btn-tertiary">Learn More</a>
+                    </div>
+                    
+                    <div class="offer-card">
+                        <div class="offer-icon">🎁</div>
+                        <h3>Welcome Package</h3>
+                        <p>Exclusive welcome package for first-time NRI customers</p>
+                        <a href="#" class="btn-tertiary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #1e3c72; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2023 Z1CRAS. All Rights Reserved.</p>
+            <p>Premium Car Rentals for UAE NRIs in Kerala</p>
+        </div>
+        
+    </footer>
+
+    <!-- Configuration and Scripts -->
+    <script src="config.js"></script>
+    <script>
+        // Initialize Supabase
+        const supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+    </script>
+    <script src="vehicles.js"></script>
+</body>
+</html>

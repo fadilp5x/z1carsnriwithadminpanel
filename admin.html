@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z1CRAS Command Center</title>
+
+    <!-- ADDED: PWA Manifest and Theme Color -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#B99768">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --background-cream: #F9F6F1; --background-dark: #2C2A2A; --text-dark: #3D3A3A;
+            --text-light: #6e6a6a; --gold-accent: #B99768; --gold-hover: #A4865A;
+            --border-color: #EAE3D8; --white: #FFFFFF; --danger: #e53e3e; --success: #38a169;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--background-cream); color: var(--text-dark); }
+        #login-section { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .login-card { background: var(--white); padding: 3rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%; max-width: 400px; text-align: center; }
+        .login-card img { height: 80px; margin-bottom: 1.5rem; }
+        .login-card h1 { font-family: 'Playfair Display', serif; margin-bottom: 0.5rem; }
+        .login-card p { color: var(--text-light); margin-bottom: 2rem; }
+        .form-group { text-align: left; margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1rem; }
+        .btn { padding: 0.8rem 1.5rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; border: none; font-size: 1rem; }
+        .btn-full { width: 100%; } .btn-primary { background: var(--gold-accent); color: var(--white); }
+        .btn-primary:hover { background: var(--gold-hover); }
+        #admin-panel { display: none; } .admin-layout { display: flex; min-height: 100vh; position: relative; }
+        .sidebar { background: var(--background-dark); color: var(--white); width: 260px; padding: 2rem 1.5rem; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out; z-index: 100; }
+        .sidebar-header { text-align: center; margin-bottom: 3rem; } .sidebar-header img { height: 60px; margin-bottom: 1rem; }
+        .sidebar-header h2 { font-family: 'Montserrat', sans-serif; font-size: 1rem; color: var(--gold-accent); }
+        .sidebar-nav a { display: flex; align-items: center; color: var(--white); text-decoration: none; padding: 0.8rem 1rem; border-radius: 5px; margin-bottom: 0.5rem; font-weight: 500; transition: background 0.3s; }
+        .sidebar-nav a i { margin-right: 0.8rem; width: 20px; text-align: center;} .sidebar-nav a:hover, .sidebar-nav a.active { background: var(--gold-accent); }
+        .sidebar-footer { margin-top: auto; } #logout-btn { background: none; color: var(--text-light); width: 100%; text-align: left; }
+        #logout-btn:hover { color: var(--white); } .main-content { flex-grow: 1; padding: 2.5rem; overflow-x: hidden; }
+        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;}
+        .main-header h1 { font-size: 2.5rem; } .main-header h2 { font-size: 1.8rem; font-weight: 600; color: var(--text-dark); }
+        .btn-success { background-color: var(--success); color: var(--white); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .stat-card { background: var(--white); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); }
+        .stat-card .icon { font-size: 1.5rem; color: var(--gold-accent); margin-bottom: 1rem; }
+        .stat-card .value { font-size: 2.5rem; font-weight: 700; } .stat-card .label { color: var(--text-light); font-weight: 500; }
+        .table-wrapper { overflow-x: auto; }
+        .data-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
+        .data-table th, .data-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+        .data-table th { font-family: 'Montserrat'; font-size: 0.9rem; text-transform: uppercase; color: var(--text-light); }
+        .data-table td img { width: 100px; height: 75px; object-fit: cover; border-radius: 5px; }
+        .drag-handle { cursor: grab; color: var(--text-light); font-size: 1.2rem; }
+        .vehicle-actions button { background: none; border: none; cursor: pointer; font-size: 1rem; margin: 0 0.5rem; }
+        .btn-edit { color: var(--gold-accent); } .btn-delete { color: var(--danger); }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--success); } input:checked + .slider:before { transform: translateX(24px); }
+        .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 2.5rem; border-radius: 8px; width: 90%; max-width: 700px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .modal-header h2 { font-size: 2rem; } .close-btn { color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .spinner { border: 4px solid rgba(0,0,0,0.1); width: 24px; height: 24px; border-radius: 50%; border-left-color: var(--gold-accent); animation: spin 1s ease infinite; display: inline-block; margin-right: 10px; vertical-align: middle; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #notification { position: fixed; top: 20px; right: 20px; padding: 1rem 1.5rem; border-radius: 5px; color: var(--white); z-index: 1002; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        #notification.success { background: var(--success); } #notification.error { background: var(--danger); }
+        @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animated-card { animation: fadeInSlideUp 0.5s ease-out forwards; opacity: 0; }
+        .status-badge { padding: 0.25rem 0.6rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+        .status-new { background-color: #e0e7ff; color: #4338ca; }
+        .status-confirmed { background-color: #d1fae5; color: #065f46; }
+        .status-completed { background-color: #f3f4f6; color: #4b5563; }
+        .status-canceled { background-color: #fee2e2; color: #991b1b; }
+        
+        /* --- ADDED: PWA Install Button Styles --- */
+        .pwa-install-section { padding-top: 1.5rem; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); }
+        .pwa-install-section h3 { font-size: 0.9rem; font-weight: 600; color: var(--gold-accent); text-align: center; margin-bottom: 1rem; }
+        .pwa-buttons { display: flex; flex-direction: column; gap: 0.75rem; }
+        .pwa-btn { background-color: rgba(255,255,255,0.1); color: var(--white); border: 1px solid rgba(255,255,255,0.2); text-align: left; display: flex; align-items: center; }
+        .pwa-btn:hover { background-color: rgba(255,255,255,0.2); }
+        .pwa-btn i { font-size: 1.2rem; margin-right: 0.8rem; width: 20px; text-align: center; }
+        #ios-install-prompt { display: none; background-color: #007aff; color: white; padding: 1.5rem; border-radius: 8px; text-align: center; }
+        #ios-install-prompt p { margin-bottom: 1rem; }
+        
+        /* --- ADDED: Mobile Responsive Styles --- */
+        .mobile-header { display: none; }
+        @media (max-width: 768px) {
+            .admin-layout { flex-direction: column; }
+            .sidebar { position: fixed; top: 0; left: 0; height: 100%; transform: translateX(-100%); box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { padding: 1.5rem; padding-top: 6rem; }
+            .main-header h1 { font-size: 2rem; }
+            .mobile-header { display: flex; align-items: center; justify-content: space-between; background: var(--background-dark); color: var(--white); padding: 1rem 1.5rem; position: fixed; top: 0; left: 0; width: 100%; z-index: 99; }
+            .mobile-header .logo { height: 40px; }
+            #menu-toggle { background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+            .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 98; }
+            .overlay.show { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="notification"></div>
+
+    <section id="login-section">
+        <div class="login-card">
+            <img src="https://z1cars.in/logorembg.png" alt="Z1CRAS Logo">
+            <h1>Command Center</h1>
+            <p>Please sign in to manage your fleet.</p>
+            <form id="login-form">
+                <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" class="form-control" required></div>
+                <div class="form-group"><label for="password">Password</label><input type="password" id="password" class="form-control" required></div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+            </form>
+        </div>
+    </section>
+
+    <main id="admin-panel">
+        <!-- ADDED: Mobile Header -->
+        <header class="mobile-header">
+            <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+            <img src="https://z1cars.in/logorembg.png" alt="Z1CRAS Logo" class="logo">
+            <span>&nbsp;</span> <!-- Spacer -->
+        </header>
+        <div class="overlay" id="overlay"></div>
+
+        <div class="admin-layout">
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header"><img src="https://z1cars.in/logorembg.png" alt="Z1CRAS Logo"><h2>Z1CRAS</h2></div>
+                <nav class="sidebar-nav">
+                    <a href="#" id="nav-dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="#" id="nav-fleet"><i class="fas fa-car"></i> Manage Fleet</a>
+                    <a href="#" id="nav-bookings"><i class="fas fa-calendar-check"></i> Bookings</a>
+                </nav>
+                
+                <!-- MODIFIED: Sidebar footer structure to include PWA section -->
+                <footer class="sidebar-footer">
+                    <div class="pwa-install-section">
+                        <h3>Install App</h3>
+                        <div class="pwa-buttons">
+                            <button id="android-install-btn" class="btn pwa-btn" style="display: none;"><i class="fab fa-google-play"></i> Install on Android</button>
+                            <button id="ios-install-btn" class="btn pwa-btn" style="display: none;"><i class="fab fa-apple"></i> Install on iOS</button>
+                        </div>
+                    </div>
+                    <button id="logout-btn" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </footer>
+            </aside>
+            <div class="main-content">
+                <div id="dashboard-view">
+                    <div class="main-header">
+                        <h1>Dashboard</h1>
+                        <button id="add-vehicle-btn-dash" class="btn btn-success"><i class="fas fa-plus"></i> Add New Vehicle</button>
+                    </div>
+                    <div class="main-header" style="margin-bottom: 1.5rem; padding-top: 1rem;">
+                        <h2>Fleet Overview</h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card animated-card" style="animation-delay: 0.1s;"><div class="icon"><i class="fas fa-car-side"></i></div><div class="value" id="stat-total">0</div><div class="label">Total Vehicles</div></div>
+                        <div class="stat-card animated-card" style="animation-delay: 0.2s;"><div class="icon"><i class="fas fa-check-circle"></i></div><div class="value" id="stat-available">0</div><div class="label">Available (Live)</div></div>
+                        <div class="stat-card animated-card" style="animation-delay: 0.3s;"><div class="icon"><i class="fas fa-tools"></i></div><div class="value" id="stat-maintenance">0</div><div class="label">In Maintenance</div></div>
+                    </div>
+                    <div class="main-header" style="margin-bottom: 1.5rem; padding-top: 3rem;">
+                        <h2>Website Analytics (Last 24 hours)</h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card animated-card" style="animation-delay: 0.4s;">
+                            <div class="icon"><i class="fas fa-users"></i></div><div class="value" id="stat-visitors">0</div><div class="label">Unique Visitors</div>
+                        </div>
+                        <div class="stat-card animated-card" style="animation-delay: 0.5s;">
+                            <div class="icon"><i class="fas fa-globe-asia"></i></div><div class="value" id="stat-countries">0</div><div class="label">Top Country</div>
+                        </div>
+                        <div class="stat-card animated-card" style="animation-delay: 0.6s;">
+                            <div class="icon"><i class="fas fa-file-signature"></i></div><div class="value" id="stat-conversions">0</div><div class="label">Bookings / Conversions</div>
+                        </div>
+                    </div>
+                    <div class="stat-card animated-card" style="margin-top: 2rem; animation-delay: 0.7s;">
+                        <h3 style="margin-bottom: 1.5rem; font-weight: 600;">Visitors by Country</h3><canvas id="geo-chart"></canvas>
+                    </div>
+                </div>
+
+                <div id="fleet-view" style="display: none;">
+                    <div class="main-header"><h1>Manage Fleet</h1><button id="add-vehicle-btn-fleet" class="btn btn-success"><i class="fas fa-plus"></i> Add New Vehicle</button></div>
+                    <p style="color: var(--text-light); margin-bottom: 1.5rem;"><i class="fas fa-info-circle"></i> Drag and drop vehicles to reorder their display on the website.</p>
+                    <div class="table-wrapper"><table class="data-table vehicle-table"><thead><tr><th></th><th>Image</th><th>Name</th><th>Brand</th><th>Rate</th><th>Live Status</th><th>Actions</th></tr></thead><tbody id="vehicle-table-body"></tbody></table></div>
+                </div>
+
+                <div id="bookings-view" style="display: none;">
+                     <div class="main-header"><h1>Bookings & CRM</h1></div>
+                     <p style="color: var(--text-light); margin-bottom: 1.5rem;"><i class="fas fa-info-circle"></i> This is a history of all booking requests received from the website, with the most recent at the top.</p>
+                     <!-- ADDED: iOS Install Instructions Prompt -->
+                     <div id="ios-install-prompt" class="animated-card" style="margin-bottom: 1.5rem;">
+                         <p>To install the app on your iPhone, tap the Share button <i class="fas fa-share-alt"></i> in your browser's toolbar and then select 'Add to Home Screen'.</p>
+                    </div>
+                     <div class="table-wrapper">
+                         <table class="data-table">
+                             <thead><tr><th>Received</th><th>Customer</th><th>WhatsApp No.</th><th>Vehicle Choice</th><th>Dates</th><th>Status</th><th>Actions</th></tr></thead>
+                             <tbody id="booking-table-body"></tbody>
+                         </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="vehicle-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title">Add New Vehicle</h2><span class="close-btn">&times;</span></div>
+            <form id="vehicle-form">
+                <input type="hidden" id="vehicle-id">
+                <div class="form-group"><label for="vehicle-name">Vehicle Name</label><input type="text" id="vehicle-name" class="form-control" required></div>
+                <div class="form-group"><label for="vehicle-brand">Brand</label><input type="text" id="vehicle-brand" class="form-control" required></div>
+                <div class="form-group"><label for="vehicle-rate">Rate (e.g., ₹35,000/Day)</label><input type="text" id="vehicle-rate" class="form-control" required></div>
+                <div class="form-group"><label for="vehicle-year">Year</label><input type="number" id="vehicle-year" class="form-control" required></div>
+                <div class="form-group"><label for="vehicle-type">Type</label><select id="vehicle-type" class="form-control" required><option value="SUV">SUV</option><option value="Sedan">Sedan</option><option value="Compact">Compact</option></select></div>
+                <div class="form-group"><label for="vehicle-standard-package">Standard Package</label><input type="text" id="vehicle-standard-package" class="form-control" placeholder="e.g. 8hrs, 100Kms" required></div>
+                <div class="image-uploader" style="border: 2px dashed var(--border-color); border-radius: 8px; padding: 1.5rem; margin-top: 1rem;">
+                    <h3 style="font-family: 'Montserrat'; font-weight: 600; margin-bottom: 1.5rem; text-align: center;">Image Uploader</h3>
+                    <div class="form-group"><label for="image-upload">1. Select an Image File</label><input type="file" id="image-upload" class="form-control" accept="image/*"></div>
+                    <button type="button" id="upload-btn" class="btn btn-primary btn-full"><i class="fas fa-upload"></i> 2. Upload to Server</button>
+                    <div id="upload-status" style="color: var(--text-light); font-weight: 500; min-height: 24px; text-align: center; margin-top: 1rem;"></div>
+                </div>
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label for="vehicle-image-url">3. Final Image URL</label>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem;">This URL is automatically filled after you upload an image.</p>
+                    <input type="text" id="vehicle-image-url" class="form-control" placeholder="Supabase public URL for the image" required>
+                </div>
+                <button type="submit" id="save-vehicle-btn" class="btn btn-success btn-full" style="margin-top: 2rem;">Save Vehicle</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. INITIALIZATION ---
+            if (typeof SUPABASE_CONFIG === 'undefined' || !SUPABASE_CONFIG.url || !SUPABASE_CONFIG.key) {
+                document.body.innerHTML = '<h1 style="text-align:center; padding-top: 50px;">CRITICAL ERROR: config.js is missing or invalid. Admin panel cannot function.</h1>';
+                return;
+            }
+            const supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+
+            // ADDED: PWA and Mobile UI elements
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const androidInstallBtn = document.getElementById('android-install-btn');
+            const iosInstallBtn = document.getElementById('ios-install-btn');
+            const iosInstallPrompt = document.getElementById('ios-install-prompt');
+            let deferredPrompt;
+
+            // --- ADDED: PWA LOGIC ---
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(registration => console.log('ServiceWorker registration successful'))
+                        .catch(err => console.log('ServiceWorker registration failed: ', err));
+                });
+            }
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                if(androidInstallBtn) androidInstallBtn.style.display = 'flex';
+            });
+
+            if(androidInstallBtn) {
+                androidInstallBtn.addEventListener('click', (e) => {
+                    androidInstallBtn.style.display = 'none';
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        deferredPrompt = null;
+                    });
+                });
+            }
+
+            const isIos = () => /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIos() && !window.navigator.standalone) {
+                if(iosInstallBtn) iosInstallBtn.style.display = 'flex';
+            }
+            
+            if(iosInstallBtn) {
+                iosInstallBtn.addEventListener('click', () => {
+                    if(iosInstallPrompt) {
+                        iosInstallPrompt.style.display = 'block';
+                        setTimeout(() => { iosInstallPrompt.style.display = 'none'; }, 8000);
+                    }
+                });
+            }
+
+            // --- ADDED: MOBILE UI LOGIC ---
+            if(menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('show');
+                });
+            }
+
+            if(overlay) {
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('show');
+                });
+            }
+
+
+            // --- ALL PREVIOUS CODE IS PRESERVED BELOW ---
+            const loginSection = document.getElementById('login-section');
+            const adminPanel = document.getElementById('admin-panel');
+            const loginForm = document.getElementById('login-form');
+            const logoutBtn = document.getElementById('logout-btn');
+            const notification = document.getElementById('notification');
+            const dashboardView = document.getElementById('dashboard-view');
+            const fleetView = document.getElementById('fleet-view');
+            const bookingsView = document.getElementById('bookings-view');
+            const navDashboard = document.getElementById('nav-dashboard');
+            const navFleet = document.getElementById('nav-fleet');
+            const navBookings = document.getElementById('nav-bookings');
+            const vehicleTableBody = document.getElementById('vehicle-table-body');
+            const modal = document.getElementById('vehicle-modal');
+            const closeModalBtn = document.querySelector('.close-btn');
+            const vehicleForm = document.getElementById('vehicle-form');
+            const uploadBtn = document.getElementById('upload-btn');
+            const imageUploadInput = document.getElementById('image-upload');
+            const uploadStatus = document.getElementById('upload-status');
+            const bookingTableBody = document.getElementById('booking-table-body');
+            let sortable;
+            let geoChartInstance = null;
+
+            const coreFunctions = {
+                checkUser: async () => {
+                    const { data: { session } } = await supabase.auth.getSession();
+                    if (session) {
+                        loginSection.style.display = 'none';
+                        adminPanel.style.display = 'block';
+                        coreFunctions.loadInitialData();
+                    } else {
+                        loginSection.style.display = 'flex';
+                        adminPanel.style.display = 'none';
+                    }
+                },
+                loadInitialData: () => {
+                    fleetFunctions.fetchVehicles();
+                    dashboardFunctions.fetchDashboardStats();
+                    dashboardFunctions.fetchAnalyticsData();
+                    bookingFunctions.fetchBookings();
+                },
+                showNotification: (message, type = 'success') => {
+                    notification.textContent = message;
+                    notification.className = type;
+                    notification.style.display = 'block';
+                    setTimeout(() => { notification.style.display = 'none'; }, 3000);
+                },
+                switchView: (viewToShow) => {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('open');
+                        overlay.classList.remove('show');
+                    }
+                    [dashboardView, fleetView, bookingsView].forEach(v => v.style.display = 'none');
+                    [navDashboard, navFleet, navBookings].forEach(n => n.classList.remove('active'));
+                    if (viewToShow === 'dashboard') {
+                        dashboardView.style.display = 'block';
+                        navDashboard.classList.add('active');
+                    } else if (viewToShow === 'fleet') {
+                        fleetView.style.display = 'block';
+                        navFleet.classList.add('active');
+                    } else if (viewToShow === 'bookings') {
+                        bookingsView.style.display = 'block';
+                        navBookings.classList.add('active');
+                    }
+                },
+            };
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const { error } = await supabase.auth.signInWithPassword({ email, password });
+                if (error) { coreFunctions.showNotification('Invalid login credentials.', 'error'); } 
+                else { coreFunctions.checkUser(); }
+            });
+
+            logoutBtn.addEventListener('click', async () => {
+                await supabase.auth.signOut();
+                coreFunctions.checkUser();
+            });
+            
+            navDashboard.addEventListener('click', (e) => { e.preventDefault(); coreFunctions.switchView('dashboard'); });
+            navFleet.addEventListener('click', (e) => { e.preventDefault(); coreFunctions.switchView('fleet'); });
+            navBookings.addEventListener('click', (e) => { e.preventDefault(); coreFunctions.switchView('bookings'); });
+
+            const dashboardFunctions = {
+                fetchDashboardStats: async () => {
+                    const { data, error, count } = await supabase.from('vehicles').select('*', { count: 'exact' });
+                    if (error) return;
+                    document.getElementById('stat-total').textContent = count;
+                    const available = data.filter(v => v.is_live).length;
+                    document.getElementById('stat-available').textContent = available;
+                    document.getElementById('stat-maintenance').textContent = count - available;
+                },
+                fetchAnalyticsData: async () => {
+                    const { data, error } = await supabase.from('analytics_snapshots').select('*').order('created_at', { ascending: false }).limit(1).single();
+                    if (error || !data) { console.warn('Could not fetch analytics data:', error); return; }
+                    document.getElementById('stat-visitors').textContent = data.metrics?.visitors || 0;
+                    document.getElementById('stat-conversions').textContent = data.conversions || 0;
+                    const topCountry = data.geo_breakdown?.[0]?.country || 'N/A';
+                    document.getElementById('stat-countries').textContent = topCountry;
+                    dashboardFunctions.renderGeoChart(data.geo_breakdown);
+                },
+                renderGeoChart: (geoData) => {
+                    const ctx = document.getElementById('geo-chart').getContext('2d');
+                    if (!geoData || geoData.length === 0) { ctx.font = "16px 'Montserrat'"; ctx.fillStyle = '#6e6a6a'; ctx.textAlign = 'center'; ctx.fillText('No geographical data to display.', ctx.canvas.width / 2, 50); return; }
+                    const sortedData = [...geoData].sort((a, b) => b.visitors - a.visitors).slice(0, 7);
+                    const labels = sortedData.map(item => item.country);
+                    const values = sortedData.map(item => item.visitors);
+                    if (geoChartInstance) { geoChartInstance.destroy(); }
+                    geoChartInstance = new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: 'Visitors', data: values, backgroundColor: 'rgba(185, 151, 104, 0.7)', borderColor: 'rgba(185, 151, 104, 1)', borderWidth: 1 }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#3D3A3A', titleFont: { family: 'Montserrat' }, bodyFont: { family: 'Montserrat' }, } }, scales: { y: { beginAtZero: true, grid: { color: '#EAE3D8' } }, x: { grid: { display: false } } } } });
+                }
+            };
+
+            const fleetFunctions = {
+                fetchVehicles: async () => {
+                    vehicleTableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Loading fleet...</td></tr>';
+                    const { data, error } = await supabase.from('vehicles').select('*').order('order', { ascending: true });
+                    if (error) { coreFunctions.showNotification('Error fetching vehicles.', 'error'); return; }
+                    fleetFunctions.renderVehicles(data);
+                },
+                renderVehicles: (vehicles) => {
+                    vehicleTableBody.innerHTML = '';
+                    vehicles.forEach(vehicle => {
+                        const row = document.createElement('tr');
+                        row.dataset.id = vehicle.id;
+                        row.innerHTML = `<td><i class="fas fa-bars drag-handle"></i></td><td><img src="${vehicle.image || 'https://placehold.co/100x75/EAE3D8/3D3A3A?text=No+Image'}" alt="${vehicle.name}"></td><td><b>${vehicle.name}</b></td><td>${vehicle.brand}</td><td>${vehicle.rate}</td><td><label class="switch"><input type="checkbox" class="maintenance-toggle" ${vehicle.is_live ? 'checked' : ''}><span class="slider"></span></label></td><td class="vehicle-actions"><button class="btn-edit"><i class="fas fa-pencil-alt"></i></button><button class="btn-delete"><i class="fas fa-trash-alt"></i></button></td>`;
+                        vehicleTableBody.appendChild(row);
+                        row.querySelector('.btn-edit').addEventListener('click', () => modalFunctions.openModalForEdit(vehicle));
+                        row.querySelector('.btn-delete').addEventListener('click', () => fleetFunctions.handleDeleteVehicle(vehicle.id, vehicle.image));
+                        row.querySelector('.maintenance-toggle').addEventListener('change', (e) => fleetFunctions.handleToggleMaintenance(vehicle.id, e.target.checked));
+                    });
+                    fleetFunctions.initSortable();
+                },
+                initSortable: () => {
+                    if (sortable) sortable.destroy();
+                    sortable = new Sortable(vehicleTableBody, { handle: '.drag-handle', animation: 150, onEnd: async () => { const updates = Array.from(vehicleTableBody.children).map((row, index) => ({ id: row.dataset.id, order: index })); const { error } = await supabase.from('vehicles').upsert(updates); if (error) { coreFunctions.showNotification('Failed to save new order.', 'error'); fleetFunctions.fetchVehicles(); } else { coreFunctions.showNotification('Vehicle order updated.'); } } });
+                },
+                handleToggleMaintenance: async (id, is_live) => {
+                    const { error } = await supabase.from('vehicles').update({ is_live }).eq('id', id);
+                    if(error) { coreFunctions.showNotification('Failed to update status.', 'error'); fleetFunctions.fetchVehicles(); } 
+                    else { coreFunctions.showNotification(`Vehicle is now ${is_live ? 'live' : 'in maintenance'}.`); dashboardFunctions.fetchDashboardStats(); }
+                },
+                handleDeleteVehicle: async (id, imageUrl) => {
+                    if (!confirm('Are you sure? This cannot be undone.')) return;
+                    const { error: dbError } = await supabase.from('vehicles').delete().eq('id', id);
+                    if (dbError) { coreFunctions.showNotification('Error deleting vehicle: ' + dbError.message, 'error'); return; }
+                    if (imageUrl) { try { const imageName = new URL(imageUrl).pathname.split('/').pop(); if(imageName) await supabase.storage.from('vehicles').remove([imageName]); } catch (e) { console.warn("Could not parse image URL to delete from storage:", e.message); } }
+                    coreFunctions.showNotification('Vehicle deleted successfully.');
+                    coreFunctions.loadInitialData();
+                }
+            };
+
+            const modalFunctions = {
+                openModalForCreate: () => {
+                    vehicleForm.reset(); uploadStatus.innerHTML = ''; document.getElementById('modal-title').textContent = 'Add New Vehicle'; document.getElementById('vehicle-id').value = ''; modal.style.display = 'block';
+                },
+                openModalForEdit: (vehicle) => {
+                    vehicleForm.reset(); uploadStatus.innerHTML = ''; document.getElementById('modal-title').textContent = 'Edit Vehicle'; document.getElementById('vehicle-id').value = vehicle.id; document.getElementById('vehicle-name').value = vehicle.name; document.getElementById('vehicle-brand').value = vehicle.brand; document.getElementById('vehicle-rate').value = vehicle.rate; document.getElementById('vehicle-year').value = vehicle.year; document.getElementById('vehicle-type').value = vehicle.type; document.getElementById('vehicle-standard-package').value = vehicle.standardPackage; document.getElementById('vehicle-image-url').value = vehicle.image || ''; modal.style.display = 'block';
+                },
+                handleFormSubmit: async (e) => {
+                    e.preventDefault();
+                    const saveBtn = document.getElementById('save-vehicle-btn');
+                    const originalBtnText = saveBtn.innerHTML;
+                    saveBtn.disabled = true; saveBtn.innerHTML = '<div class="spinner" style="border-left-color: white;"></div> Saving...';
+                    const vehicleId = document.getElementById('vehicle-id').value;
+                    const vehicleData = { name: document.getElementById('vehicle-name').value, brand: document.getElementById('vehicle-brand').value, rate: document.getElementById('vehicle-rate').value, year: parseInt(document.getElementById('vehicle-year').value), type: document.getElementById('vehicle-type').value, standardPackage: document.getElementById('vehicle-standard-package').value, image: document.getElementById('vehicle-image-url').value, };
+                    let error;
+                    if (vehicleId) { ({ error } = await supabase.from('vehicles').update(vehicleData).eq('id', vehicleId)); } else { ({ error } = await supabase.from('vehicles').insert([vehicleData])); }
+                    saveBtn.disabled = false; saveBtn.innerHTML = originalBtnText;
+                    if (error) { coreFunctions.showNotification('Error saving vehicle: ' + error.message, 'error'); } else { coreFunctions.showNotification(`Vehicle ${vehicleId ? 'updated' : 'added'} successfully.`); modal.style.display = 'none'; coreFunctions.loadInitialData(); }
+                }
+            };
+
+            const uploadFunctions = {
+                handleImageUpload: async () => {
+                    const file = imageUploadInput.files[0]; if (!file) { alert('Please select an image file to upload first.'); return; }
+                    uploadStatus.innerHTML = '<div class="spinner"></div> Uploading...';
+                    const fileName = `vehicle_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+                    const { error } = await supabase.storage.from('vehicles').upload(fileName, file, { contentType: file.type, upsert: false });
+                    if (error) { coreFunctions.showNotification('Error uploading image: ' + error.message, 'error'); uploadStatus.innerHTML = `<span style="color:var(--danger)">Upload failed. Please try again.</span>`; return; }
+                    const { data: { publicUrl } } = supabase.storage.from('vehicles').getPublicUrl(fileName);
+                    document.getElementById('vehicle-image-url').value = publicUrl;
+                    coreFunctions.showNotification('Image uploaded and URL is set!');
+                    uploadStatus.innerHTML = `<span style="color:var(--success)">Upload complete! URL is in the field below.</span>`;
+                }
+            };
+
+            const bookingFunctions = {
+                fetchBookings: async () => {
+                    bookingTableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Loading bookings...</td></tr>';
+                    const { data, error } = await supabase.from('bookings').select('*').order('created_at', { ascending: false });
+                    if (error) { coreFunctions.showNotification('Error fetching bookings.', 'error'); bookingTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--danger);">Could not load bookings. Error: ${error.message}</td></tr>`; return; }
+                    bookingFunctions.renderBookings(data);
+                },
+                renderBookings: (bookings) => {
+                    if (bookings.length === 0) { bookingTableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No booking requests found.</td></tr>'; return; }
+                    bookingTableBody.innerHTML = bookings.map(booking => {
+                        const receivedDate = new Date(booking.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric'});
+                        const pickupDate = new Date(booking.pickup_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                        const returnDate = new Date(booking.return_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                        const statusClass = `status-${booking.status.toLowerCase()}`;
+                        return `<tr data-id="${booking.id}"><td>${receivedDate}</td><td><b>${booking.customer_name}</b></td><td><a href="https://wa.me/${booking.customer_phone.replace(/[^0-9]/g, '')}" target="_blank">${booking.customer_phone}</a></td><td>${booking.vehicle_choice}</td><td>${pickupDate} - ${returnDate}</td><td><span class="status-badge ${statusClass}">${booking.status}</span></td><td class="vehicle-actions"><select class="status-changer" style="padding: 5px; border-radius: 4px; border: 1px solid var(--border-color);"><option value="New" ${booking.status === 'New' ? 'selected' : ''}>New</option><option value="Confirmed" ${booking.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option><option value="Completed" ${booking.status === 'Completed' ? 'selected' : ''}>Completed</option><option value="Canceled" ${booking.status === 'Canceled' ? 'selected' : ''}>Canceled</option></select></td></tr>`;
+                    }).join('');
+                },
+                handleStatusChange: async (bookingId, newStatus) => {
+                    const { error } = await supabase.from('bookings').update({ status: newStatus }).eq('id', bookingId);
+                    if (error) { coreFunctions.showNotification(`Failed to update status: ${error.message}`, 'error'); bookingFunctions.fetchBookings(); } 
+                    else { coreFunctions.showNotification('Booking status updated successfully.'); bookingFunctions.fetchBookings(); }
+                }
+            };
+            
+            [...document.querySelectorAll('#add-vehicle-btn-dash, #add-vehicle-btn-fleet')].forEach(btn => btn.addEventListener('click', modalFunctions.openModalForCreate));
+            closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+            window.addEventListener('click', (event) => { if (event.target == modal) { modal.style.display = 'none'; } });
+            vehicleForm.addEventListener('submit', modalFunctions.handleFormSubmit);
+            uploadBtn.addEventListener('click', uploadFunctions.handleImageUpload);
+            
+            bookingTableBody.addEventListener('change', (e) => {
+                if (e.target.classList.contains('status-changer')) {
+                    const bookingId = e.target.closest('tr').dataset.id;
+                    const newStatus = e.target.value;
+                    bookingFunctions.handleStatusChange(bookingId, newStatus);
+                }
+            });
+
+            coreFunctions.checkUser();
+        });
+    </script>
+</body>
+</html>
+
