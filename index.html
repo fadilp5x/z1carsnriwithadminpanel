@@ -3,1100 +3,739 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Z1CARS | Premium Car Rentals for NRIs in Kerala</title>
-    <meta name="description" content="Luxury car rentals in Kerala tailored for UAE NRIs. Experience premium service with our Range Rover, BMW, Mercedes fleet.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-
-<script>
-
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag(){dataLayer.push(arguments);}
-
-  gtag('js', new Date());
-
-
-
-  gtag('config', 'G-GPZXH51MWV');
-
-</script>
-<!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-<link rel="manifest" href="/favicon/site.webmanifest">
-<meta name="msapplication-TileColor" content="#0F1115">
-<meta name="theme-color" content="#0F1115">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.z1cars.in/">
-    <meta property="og:title" content="Z1Cars | Luxury Car Rentals & Dealership">
-    <meta property="og:description" content="Z1Cars offers premium luxury car rentals in Kerala. Experience the ultimate driving with our fleet of Range Rover, BMW, Mercedes, Audi and more.">
-    <meta property="og:image" content="https://i.ibb.co/hRKhMQgh/Whats-App-Image-2025-08-31-at-03-14-20-bc96ac1f-removebg-preview.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.z1cars.in/">
-    <meta property="twitter:title" content="Z1Cars | Luxury Car Rentals & Dealership">
-    <meta property="twitter:description" content="Z1Cars offers premium luxury car rentals in Kerala. Experience the ultimate driving with our fleet of Range Rover, BMW, Mercedes, Audi and more.">
-    <meta property="twitter:image" content="https://i.ibb.co/hRKhMQgh/Whats-App-Image-2025-08-31-at-03-14-20-bc96ac1f-removebg-preview.png">
+    <title>Z1CARS | Premium Driver-Driven Car Rentals in Kerala</title>
+    <meta name="description" content="Luxury driver-driven car rentals in Kerala tailored for UAE/GCC NRIs. Experience premium service with our Range Rover, BMW, and Mercedes fleet.">
+    <meta name="keywords" content="driver car rental kerala, luxury car rental kochi, nri car rental, wedding car kerala, airport pickup kochi">
     
-    <!-- Schema.org markup for Google -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CarRental",
-      "name": "Z1Cars",
-      "image": "https://i.ibb.co/hRKhMQgh/Whats-App-Image-2025-08-31-at-03-14-20-bc96ac1f-removebg-preview.png",
-      "@id": "https://www.z1cars.in",
-      "url": "https://www.z1cars.in",
-      "telephone": "+919645822192",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kerala",
-        "addressCountry": "IN"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "10.8505",
-        "longitude": "76.2711"
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday"
-        ],
-        "opens": "00:00",
-        "closes": "23:59"
-      },
-      "priceRange": "₹20,000 - ₹2,00,000"
-    }
-    </script>
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <meta name="theme-color" content="#0F1115">
+
     <style>
         /* --- Desert Luxe Color Palette --- */
         :root {
-            --background-cream: #F9F6F1; /* Main light background */
-            --text-dark: #3D3A3A;         /* Primary text color */
-            --text-light: #6e6a6a;       /* Lighter text for descriptions */
-            --gold-accent: #B99768;      /* Primary accent for buttons and highlights */
-            --gold-hover: #A4865A;       /* Darker gold for hover states */
-            --border-color: #EAE3D8;     /* Subtle border color */
-            --header-bg: rgba(249, 246, 241, 0.9); /* Header background with transparency */
+            --bg-cream: #F9F6F1;
+            --text-dark: #1A1A1A;
+            --text-grey: #4A4A4A;
+            --gold-primary: #B99768;
+            --gold-hover: #A4865A;
+            --black-luxury: #0F1115;
+            --white: #FFFFFF;
+            --border-light: #E5E5E5;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--background-cream);
+            background-color: var(--bg-cream);
             color: var(--text-dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-        
-        /* Header Styles - Updated for a lighter, more modern look */
-        .header {
-            background: var(--header-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-            transition: box-shadow 0.3s ease;
+            color: var(--black-luxury);
         }
 
-        .header.scrolled {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 1.5rem;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo {
-            height: 60px; /* Increased size slightly for better presence */
-            margin-right: 1rem;
-        }
-        
-        .brand-name {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            letter-spacing: 0.05em;
-        }
-        
-        .tagline {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-top: -5px;
-        }
-        
-        .uae-indicator {
-            background: var(--gold-accent);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-left: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .uae-indicator i {
-            margin-right: 0.3rem;
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-menu li {
-            margin-left: 2rem;
-        }
-        
-        .nav-menu a {
-            color: var(--text-dark);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-            padding-bottom: 5px;
-        }
-        
-        .nav-menu a:hover {
-            color: var(--gold-accent);
-        }
-        
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold-accent);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        .contact-info {
-            display: flex;
-            align-items: center;
-        }
-        
-        .contact-info a {
-            color: var(--text-dark);
-            margin-left: 1.5rem;
-            display: flex;
-            align-items: center;
-            transition: color 0.3s ease;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .contact-info a:hover {
-            color: var(--gold-accent);
-        }
-        
-        .contact-info i {
-            margin-right: 0.5rem;
-        }
-        
-        .lang-toggle {
-            background: transparent;
-            border: 1px solid var(--gold-accent);
-            color: var(--gold-accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-left: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .lang-toggle:hover {
-            background: var(--gold-accent);
-            color: white;
-        }
-        
-        /* Hero Section - Updated with "Elegant Focus" concept */
-       
-        /* Hero Section - Updated with "Elegant Focus" concept */
-        .hero {
-            position: relative;
-            height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://i.ibb.co/m5tLzmgj/DEF-110-26-MY-EXTERIOR-25052025-01.webp');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .hero-content {
-            text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 0 2rem;
-            z-index: 2;
-        }
-        
-        .hero-title {
-            font-size: 3.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-        }
-        
-        .hero-subtitle {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .btn-primary {
-            background: var(--gold-accent);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0, 0.1);
-        }
-        
-        .btn-primary:hover {
-            background: var(--gold-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0, 0.15);
-        }
-        
-        .btn-primary i {
-            margin-left: 0.5rem;
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-        }
-        
-        .btn-secondary:hover {
-            background: white;
-            color: var(--text-dark);
-        }
-        
-        .btn-secondary i {
-            margin-left: 0.5rem;
-        }
-        
-        /* Featured Vehicles Section */
-        .featured-vehicles {
-            padding: 6rem 0;
-            background: var(--background-cream);
-        }
+        a { text-decoration: none; transition: all 0.3s ease; }
+        ul { list-style: none; }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-gold {
+            background: var(--gold-primary);
+            color: var(--white);
+            border: 1px solid var(--gold-primary);
         }
         
-        .section-title h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
+        .btn-gold:hover {
+            background: var(--gold-hover);
+            border-color: var(--gold-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--black-luxury);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: var(--white);
+            border: none;
+        }
+        
+        .btn-whatsapp:hover { background: #1ebc57; }
+
+        /* --- Header --- */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+        
+        .header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img { height: 50px; }
+
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-links a {
             color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
             position: relative;
-            display: inline-block;
         }
         
-        .section-title h2::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--gold-accent);
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold-primary);
+            transition: width 0.3s;
         }
         
-        .section-title p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            max-width: 700px;
-            margin: 1.5rem auto 0;
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .header-actions { display: flex; align-items: center; gap: 1.5rem; }
+        .contact-number { 
+            font-weight: 600; 
+            color: var(--text-dark); 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem;
         }
-        
-        .vehicles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2.5rem;
-        }
-        
-        .vehicle-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
-        }
-                
-        .vehicle-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.07);
-            border-color: var(--gold-accent);
-        }
-        
-        .vehicle-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--gold-accent);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 2;
-        }
-        
-        .vehicle-image {
-            height: 220px;
-            overflow: hidden;
-        }
-        
-        .vehicle-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .vehicle-card:hover .vehicle-image img {
-            transform: scale(1.05);
-        }
-        
-        .vehicle-details {
-            padding: 1.5rem;
-        }
-        
-        .vehicle-details h3 {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .vehicle-details p {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-        }
-        
-        .vehicle-specs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            padding: 1rem 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .vehicle-spec {
+        .contact-number i { color: var(--gold-primary); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://i.ibb.co/m5tLzmgj/DEF-110-26-MY-EXTERIOR-25052025-01.webp');
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
-        }
-        
-        .vehicle-spec i {
-            margin-right: 0.5rem;
-            color: var(--gold-accent);
-        }
-        
-        .vehicle-price {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-        }
-        
-        .price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .vehicle-cta {
-            display: inline-block;
-            background: var(--text-dark);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .vehicle-cta:hover {
-            background: var(--gold-accent);
-        }
-        
-        /* Loading and Error Styles */
-        .loading-indicator, .error-message, .warning {
+            justify-content: center;
             text-align: center;
-            padding: 40px 1.5rem;
-            font-size: 1.1rem;
-        }
-        
-        .loading-indicator i {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: var(--gold-accent);
-            animation: spin 2s infinite linear;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .warning {
-            background-color: #fdf8e6;
-            border: 1px solid var(--gold-accent);
-            color: var(--text-dark);
-            margin: 0 auto 2rem auto;
-            border-radius: 8px;
-            max-width: 1140px;
-        }
-        
-        .error-message { color: #e74c3c; }
-        
-        /* --- Shared Section Styles --- */
-        .content-section {
-            padding: 6rem 0;
-            background-color: white;
-            border-top: 1px solid var(--border-color);
+            color: var(--white);
+            padding: 0 1rem;
         }
 
-        /* UAE-Kerala Bridge Section */
-        .bridge-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .bridge-image img {
-            width: 100%;
-            height: auto;
+        .hero-content { max-width: 900px; animation: fadeInUp 1s ease-out; }
+        .hero-label {
+            color: var(--gold-primary);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
             display: block;
+            font-size: 0.9rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* --- Advanced Filter Section (Super Portal) --- */
+        .filter-section {
+            background: var(--white);
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 10;
+            margin-top: -4rem; /* Overlap hero */
             border-radius: 8px;
+            border-top: 4px solid var(--gold-primary);
         }
-        
-        .bridge-text h3 {
-            font-size: 2.2rem;
+
+        .filter-header {
+            text-align: center;
             margin-bottom: 1.5rem;
         }
-        
-        .bridge-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-light);
+        .filter-header h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .filter-header p { color: var(--text-grey); font-size: 0.9rem; }
+
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .features {
+
+        .filter-group { flex: 1; min-width: 200px; }
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+            transition: all 0.3s;
+        }
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(185, 151, 104, 0.1);
+        }
+
+        .btn-reset {
+            padding: 1rem 1.5rem;
+            background: var(--black-luxury);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        .btn-reset:hover { background: var(--gold-primary); }
+
+        /* --- Fleet Section --- */
+        .fleet { padding: 4rem 0 6rem; background: var(--bg-cream); }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .section-header p { color: var(--text-grey); max-width: 600px; margin: 0 auto; }
+
+        .fleet-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2.5rem;
             margin-top: 2rem;
         }
+
+        .vehicle-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-light);
+        }
+
+        .vehicle-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--gold-primary); }
+
+        .driver-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--black-luxury);
+            color: var(--gold-primary);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .vehicle-image { height: 240px; overflow: hidden; position: relative; background-color: #f0f0f0; }
+        .vehicle-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .vehicle-card:hover .vehicle-image img { transform: scale(1.08); }
+
+        .vehicle-info { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .vehicle-title { font-size: 1.5rem; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
         
-        .feature { display: flex; align-items: flex-start; }
-        .feature i { color: var(--gold-accent); font-size: 1.5rem; margin-right: 1rem; margin-top: 0.3rem; }
-        .feature-content h4 { font-size: 1.2rem; margin-bottom: 0.5rem; font-family: 'Montserrat', sans-serif; font-weight: 600; }
-        .feature-content p { color: var(--text-light); font-size: 0.9rem; margin: 0; }
-        
-        /* NRI Testimonials Section */
-        .testimonials-grid {
+        .vehicle-specs { 
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            color: var(--text-grey); 
+            font-size: 0.85rem; 
+            margin-bottom: 1.5rem; 
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .spec-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .spec-item i { color: var(--gold-primary); font-size: 1rem; }
+        
+        .price-tag {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--black-luxury);
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-sub { font-size: 0.8rem; font-weight: 400; color: var(--text-grey); display: flex; align-items: center; gap: 5px; }
+        .price-sub i { color: var(--gold-primary); }
+
+        .vehicle-actions {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-card {
+            padding: 0.8rem;
+            font-size: 0.95rem;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-card-primary { background: var(--white); color: var(--text-dark); border: 1px solid var(--border-light); }
+        .btn-card-primary:hover { background: var(--text-dark); color: var(--white); border-color: var(--text-dark); }
+        
+        .btn-card-whatsapp { background: #25D366; color: var(--white); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2); }
+        .btn-card-whatsapp:hover { background: #1ebc57; box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3); transform: translateY(-2px); }
+
+        /* --- Features Section --- */
+        .features { padding: 5rem 0; background: var(--white); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
-        
-        .testimonial-card {
-            background: white;
+
+        .feature-card {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
             border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-color: var(--gold-primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 1rem; font-family: 'Montserrat', sans-serif; }
+        .feature-card p { color: var(--text-grey); font-size: 0.95rem; }
+
+        /* --- Testimonials --- */
+        .testimonials { padding: 5rem 0; background: var(--white); border-top: 1px solid var(--border-light); }
+        .testimonial-card {
+            background: var(--bg-cream);
             padding: 2rem;
-            border: 1px solid var(--border-color);
-            position: relative;
-            border-top: 4px solid var(--gold-accent);
+            border-radius: 8px;
+            border-left: 4px solid var(--gold-primary);
         }
-        
-        .testimonial-text { font-style: italic; margin-bottom: 1.5rem; color: #555; line-height: 1.8; }
-        .testimonial-author { display: flex; align-items: center; }
-        .author-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--gold-accent); font-weight: 700; margin-right: 1rem; font-family: 'Montserrat'; }
-        .author-info h4 { font-size: 1.1rem; margin-bottom: 0.2rem; font-family: 'Montserrat'; font-weight: 600; }
-        .author-info p { color: var(--text-light); font-size: 0.9rem; }
-        .author-location { display: flex; align-items: center; color: var(--text-light); font-size: 0.9rem; margin-top: 0.3rem; }
-        .author-location i { margin-right: 0.3rem; }
-        .rating { color: var(--gold-accent); margin-bottom: 1rem; }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 6rem 0;
-            background: url('https://images.unsplash.com/photo-1616012840252-a42d4a53e343?q=80&w=2070&auto=format&fit=crop') center/cover fixed;
-            position: relative;
+        .stars { color: var(--gold-primary); margin-bottom: 1rem; }
+        .quote { font-style: italic; color: var(--text-grey); margin-bottom: 1.5rem; font-size: 1rem; }
+        .client-info h4 { font-size: 1rem; font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 0; }
+        .client-info span { font-size: 0.85rem; color: var(--text-grey); }
+
+        /* --- Footer --- */
+        .footer { background: var(--black-luxury); color: var(--white); padding: 4rem 0 1rem; }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
-        
-        .cta-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 42, 42, 0.8); }
-        .cta-content { position: relative; z-index: 2; text-align: center; color: white; max-width: 800px; margin: 0 auto; }
-        .cta-content h2 { font-size: 2.8rem; margin-bottom: 1.5rem; color: white; }
-        .cta-content p { font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.9); }
-        .dual-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-        .dual-buttons .btn-primary { background-color: var(--gold-accent); color: white; }
-        .dual-buttons .btn-secondary { border-color: var(--gold-accent); color: var(--gold-accent); }
-        .dual-buttons .btn-secondary:hover { background-color: var(--gold-accent); color: white; }
-        
-        /* Footer */
-        .footer { background: #2C2A2A; color: white; padding: 5rem 0 2rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 4rem; }
-        .footer-column h3 { font-size: 1.5rem; margin-bottom: 1.5rem; color: white; position: relative; padding-bottom: 0.8rem; }
-        .footer-column h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 2px; background: var(--gold-accent); }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 0.8rem; }
-        .footer-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--gold-accent); }
-        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
-        .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; color: white; transition: all 0.3s ease; }
-        .social-links a:hover { background: var(--gold-accent); color: white; }
-        .contact-item { display: flex; align-items: flex-start; margin-bottom: 1rem; }
-        .contact-item i { color: var(--gold-accent); margin-right: 1rem; margin-top: 0.3rem; }
-        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center; color: rgba(255, 255, 255, 0.6); }
-        
-        /* WhatsApp Floating Button */
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); z-index: 1000; text-decoration: none; animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        
-        /* Responsive adjustments */
-        @media (max-width: 992px) { .bridge-content { grid-template-columns: 1fr; } }
+        .footer h3 { color: var(--gold-primary); margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .footer-links a { color: #aaa; display: block; margin-bottom: 0.8rem; }
+        .footer-links a:hover { color: var(--gold-primary); padding-left: 5px; }
+        .copyright { text-align: center; color: #666; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; font-size: 0.9rem; }
+
+        /* --- Floating WhatsApp --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+
+        /* --- Mobile Sticky Footer --- */
+        .mobile-sticky-footer {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            padding: 10px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 999;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .mobile-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* --- Dev Footer --- */
+        .dev-footer { background-color: #1f2937; color: white; padding: 2rem 1rem; text-align: center; margin-top: 2rem; }
+        .dev-footer h3 { font-size: 1.2rem; color: white; margin-bottom: 1rem; font-family: 'Montserrat'; }
+        .dev-btn { background: linear-gradient(to right, #fde68a, #f59e0b); color: #000; padding: 0.5rem 1.5rem; border-radius: 4px; font-weight: bold; }
+
+        /* --- Responsive --- */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; } .hero-subtitle { font-size: 1.2rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .nav-menu, .contact-info, .lang-toggle { display: none; } /* Add mobile menu logic later */
-            .dual-buttons { flex-direction: column; align-items: center; }
+            .nav-links { display: none; }
+            .header-actions { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .mobile-sticky-footer { display: flex; }
+            .whatsapp-float { bottom: 80px; } /* Move up to clear footer */
+            .contact-number { display: none; }
+            .filter-section { margin-top: 0; border-radius: 0; }
+            .fleet-grid { grid-template-columns: 1fr; }
         }
-        @media (max-width: 576px) {
-            .hero-title { font-size: 2.2rem; } .section-title h2 { font-size: 2.2rem; }
-            .features { grid-template-columns: 1fr; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        /* --- NEW: Hero Section Entry Animations --- */
-.hero-title, .hero-subtitle, .hero-buttons {
-    /* Initial state: hidden and slightly moved down */
-    opacity: 0;
-    transform: translateY(20px);
-    /* Apply the animation */
-    animation: fadeInUp 1s ease-out forwards;
-}
-
-/* Stagger the animations with delays */
-.hero-subtitle {
-    animation-delay: 0.3s;
-}
-
-.hero-buttons {
-    animation-delay: 0.6s;
-}
-
-/* Keyframe definition for the animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* --- ENHANCED: Button Hover Effects for UAE Aesthetics --- */
-
-/* Primary Button: Add a sophisticated 'shine' effect on hover */
-.btn-primary {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.btn-primary::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.2) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(45deg);
-    transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-    /* Initially positioned to be swept in on hover */
-    transform: translateX(-100%) rotate(45deg);
-}
-
-.btn-primary:hover::after {
-    transform: translateX(100%) rotate(45deg);
-}
-
-/* Secondary Button: Add a liquid-like 'fill' effect on hover */
-.btn-secondary {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    transition: color 0.4s ease-in-out; /* Smooth color transition for text */
-}
-
-.btn-secondary::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    transform: scaleY(0); /* Start scaled to 0 height */
-    transform-origin: bottom; /* Grow from the bottom up */
-    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    z-index: -1;
-}
-
-.btn-secondary:hover {
-    color: var(--text-dark); /* This matches the existing hover color */
-}
-
-.btn-secondary:hover::before {
-    transform: scaleY(1); /* Fill up on hover */
-}
+        
+        .loading { grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-grey); font-style: italic; }
+        .error { grid-column: 1 / -1; text-align: center; padding: 4rem; color: #e74c3c; }
+        .no-results { grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-grey); }
     </style>
 </head>
 <body>
+
+    <!-- Header -->
     <header class="header">
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="https://z1cars.in/logorembg.png" alt="Z1CARS Logo" class="logo">
-            </div>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://z1cars.in/logorembg.png" alt="Z1CARS Logo">
+            </a>
             
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="vehicles.html">Our Fleet</a></li>
-                <li><a href="services.html">Services</a></li>
-                
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            
-            <div class="contact-info">
-                <a href="tel:+919645822192">
-                    <i class="fas fa-phone"></i> +91 96458 22192
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#fleet-section">Our Fleet</a></li>
+                    <li><a href="services.html">Driver Services</a></li>
+                    <li><a href="book.html">Reservation</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="tel:+919645822192" class="contact-number">
+                    <i class="fas fa-phone-alt"></i> +91 96458 22192
                 </a>
-                <div class="uae-indicator">
-                    <i class="fas fa-map-marker-alt"></i> For All NRIs
-                </div>
+                <a href="https://wa.me/919645822192?text=Hi%20Z1Cars%2C%20I%20am%20looking%20for%20a%20premium%20driver-driven%20car." class="btn btn-gold">
+                    <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Quick Book
+                </a>
             </div>
         </div>
     </header>
-    
-    <section class="hero" id="home">
+
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Gulf Standards of Luxury, Now on the Roads of Kerala.</h1>
-            <p class="hero-subtitle">Your premium drive for your Kerala homecoming. Arrive in style.</p>
+            <span class="hero-label">Gulf Standards. Kerala Roads.</span>
+            <h1>Your Premium <br>Driver-Driven Experience</h1>
+            <p>Arrive in Kerala with style. Impeccable fleet, professional uniformed drivers, and absolute peace of mind for our NRI guests.</p>
             <div class="hero-buttons">
-                <a href="vehicles.html" class="btn-primary">Explore Our Fleet <i class="fas fa-arrow-right"></i></a>
-                <a href="book.html" class="btn-secondary">Book Now <i class="fas fa-calendar-check"></i></a>
+                <a href="https://wa.me/919645822192?text=Hi%20Z1Cars%2C%20I%20want%20to%20book%20a%20car%20for%20my%20Kerala%20visit." class="btn btn-gold">
+                    <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Book via WhatsApp
+                </a>
+                <a href="#fleet-section" class="btn btn-outline">Explore Fleet</a>
             </div>
         </div>
     </section>
-    
-    <section class="featured-vehicles" id="fleet">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Curated Fleet</h2>
-                <p>Select from our range of meticulously maintained luxury vehicles, ready for your journey across Kerala.</p>
+
+    <!-- Super Portal: Filter Section -->
+    <div class="container">
+        <div class="filter-section">
+            <div class="filter-header">
+                <h3>Find Your Perfect Ride</h3>
+                <p>Browse our complete inventory of luxury vehicles available for rent with driver.</p>
             </div>
-            
-            <div class="vehicles-grid" id="featured-vehicles">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <input type="text" id="search-input" placeholder="Search (e.g. Range Rover, SUV)">
                 </div>
+                <div class="filter-group">
+                    <select id="brand-filter">
+                        <option value="">All Brands</option>
+                        <option value="Range Rover">Range Rover</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Mercedes">Mercedes</option>
+                        <option value="Audi">Audi</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Porsche">Porsche</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="type-filter">
+                        <option value="">All Types</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Compact">Compact</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="price-filter">
+                        <option value="">All Prices</option>
+                        <option value="0-20000">Under ₹20,000</option>
+                        <option value="20000-50000">₹20,000 - ₹50,000</option>
+                        <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                        <option value="100000">Above ₹1,00,000</option>
+                    </select>
+                </div>
+                <button id="reset-filters" class="btn-reset">Reset</button>
+            </div>
         </div>
-    </section>
-    
-    <section class="uae-kerala-bridge content-section">
+    </div>
+
+    <!-- Fleet Section (Super Portal Dynamic) -->
+    <section class="fleet" id="fleet-section">
         <div class="container">
-            <div class="bridge-content">
-                <div class="bridge-image">
-                    <img src="https://i.ibb.co/Z6LVFjjT/chris-kursikowski-g5g-Apf-Y8gdo-unsplash.jpg" alt="Modern home in Kerala">
-                </div>
-                
-                <div class="bridge-text">
-                    <h3>From a Home You Love, To a Home You Miss</h3>
-                    <p>We understand the standard of quality and service you are accustomed to in the UAE. Z1CARS was founded by NRIs, for NRIs, with a singular mission: to provide a seamless, premium car rental experience that makes your return to Kerala feel truly special.</p>
-                    
-                    <div class="features">
-                        <div class="feature">
-                            <i class="fas fa-gem"></i>
-                            <div class="feature-content">
-                                <h4>Uncompromising Quality</h4>
-                                <p>Our fleet meets the highest standards of luxury and maintenance.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="feature">
-                            <i class="fas fa-shield-alt"></i>
-                            <div class="feature-content">
-                                <h4>Reliable & Punctual</h4>
-                                <p>On-time airport pickups and transparent service you can trust.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="feature">
-                            <i class="fas fa-headset"></i>
-                            <div class="feature-content">
-                                <h4>Personalized Service</h4>
-                                <p>Dedicated support that understands your unique requirements.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="feature">
-                            <i class="fas fa-mobile-alt"></i>
-                            <div class="feature-content">
-                                <h4>Easy Booking</h4>
-                                <p>Book easily via WhatsApp from anywhere in the world.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="fleet-grid" id="vehicles-grid">
+                <!-- Javascript will populate this with ALL vehicles -->
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading premium fleet...</div>
             </div>
         </div>
     </section>
-    
-    <section class="nri-testimonials" id="testimonials">
+
+    <!-- Features / Value Prop -->
+    <section class="features">
         <div class="container">
-            <div class="section-title">
-                <h2>Trusted by NRIs Across the Gulf</h2>
-                <p>Hear from our satisfied clients who chose Z1CARS for their Kerala visit.</p>
+            <div class="section-header">
+                <h2>The Driver Advantage</h2>
+                <p>We understand the quality you expect. No self-drive risks, no navigation hassles. Just pure luxury.</p>
             </div>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Z1CARS made our Kerala vacation exceptional. The Range Rover was perfect for our family, and the service was as premium as we're used to in Dubai. Highly recommended for UAE NRIs!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">AK</div>
-                        <div class="author-info">
-                            <h4>Ahmed Khan</h4>
-                            <div class="author-location"><i class="fas fa-map-marker-alt"></i> Dubai, UAE</div>
-                        </div>
-                    </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-user-tie feature-icon"></i>
+                    <h3>Professional Drivers</h3>
+                    <p>Experienced, uniformed, and English/Arabic speaking drivers who prioritize your safety and comfort above all.</p>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="rating">
-                       <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Booking from Abu Dhabi was seamless. The team understood our needs as NRIs and delivered a flawless experience. The BMW was immaculate and made our Kerala trip memorable."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">FS</div>
-                        <div class="author-info">
-                            <h4>Fatima Salim</h4>
-                            <div class="author-location"><i class="fas fa-map-marker-alt"></i> Abu Dhabi, UAE</div>
-                        </div>
-                    </div>
+                <div class="feature-card">
+                    <i class="fas fa-gem feature-icon"></i>
+                    <h3>Immaculate Fleet</h3>
+                    <p>Every vehicle is thoroughly cleaned, sanitized, and maintained to showroom standards before your arrival.</p>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"As a frequent traveler between Sharjah and Kerala, I've tried many services. Z1CARS stands out with their UAE-level professionalism and Kerala's warmth. The Mercedes was perfect for our business trip."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MR</div>
-                        <div class="author-info">
-                            <h4>Mohammed Rizwan</h4>
-                            <div class="author-location"><i class="fas fa-map-marker-alt"></i> Sharjah, UAE</div>
-                        </div>
-                    </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock feature-icon"></i>
+                    <h3>Punctual Service</h3>
+                    <p>We value your time. Guaranteed on-time airport pickups and drop-offs across Cochin, Calicut, and Trivandrum.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="cta-section" id="contact">
-        <div class="cta-overlay"></div>
-        <div class="container">
-            <div class="cta-content">
-                <h2>Begin Your Premium Kerala Journey</h2>
-                <p>Contact us via Call or WhatsApp to book your vehicle. Let us handle the drive while you create memories.</p>
-                <div class="dual-buttons">
-                    <a href="tel:+919645822192" class="btn-primary"><i class="fas fa-phone"></i> Call Now</a>
-                    <a href="https://wa.me/919645822192" class="btn-secondary"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>Transparent Pricing</h3>
+                    <p>Clear daily rates including driver allowance (Bata). No hidden charges or surprises.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <style>
-        .btn-shine { position: relative; overflow: hidden; }
-        .btn-shine::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: rgba(255, 255, 255, 0.15); transform: rotate(45deg); transition: transform 0.75s cubic-bezier(0.23, 1, 0.32, 1); }
-        .btn-shine:hover::after { transform: translate(50%, 50%) rotate(45deg); }
-        .btn-liquid-fill { position: relative; overflow: hidden; z-index: 1; transition: color 0.4s; }
-        .btn-liquid-fill::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #fff; border-radius: 0.5rem; transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s ease-in-out; z-index: -1; }
-        .btn-liquid-fill:hover { color: black; }
-        .btn-liquid-fill:hover::before { transform: scaleY(1); }
-        .btn-3d-press:active { transform: translateY(2px); box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
-        #fadils-footer { position: relative; }
-        #fadils-footer .confetti-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; z-index: 1; }
-        #fadils-footer .confetti { position: absolute; width: 8px; height: 16px; opacity: 0; animation: fall 4s ease-in-out forwards; }
-        @keyframes fall { 0% { transform: translateY(-10vh) rotateZ(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotateZ(720deg); opacity: 0; } }
-        #fadils-footer .container { position: relative; z-index: 2; }
-        .dev-footer { background-color: #1f2937; color: white; padding: 4rem 1rem; position: relative; overflow: hidden; }
-        .dev-footer .container { max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
-        .dev-footer p { font-size: 0.875rem; color: #9ca3af; margin-bottom: 1.5rem; }
-        .dev-footer h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 1rem; color: white; }
-        .dev-footer .cta-button { display: inline-block; background: linear-gradient(to bottom right, #fde68a, #fbbf24, #f97316); color: black; font-weight: 600; padding: 0.75rem 2rem; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); text-decoration: none; transition: all 0.3s ease; }
-        .dev-footer .cta-button:hover { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); transform: translateY(-0.25rem); }
-        @media (min-width: 768px) { .dev-footer h3 { font-size: 1.875rem; } }
-    </style>
-    <footer id="fadils-footer" class="dev-footer">
-        <div class="confetti-container"></div>
+    <!-- Testimonials -->
+    <section class="testimonials">
         <div class="container">
-            <p>Your brand deserves a website this good. Enquire with Fadil Muhammed P.</p>
+            <div class="section-header">
+                <h2>Trusted by NRIs</h2>
+                <p>Don't just take our word for it. Here is what our clients say about our driver service.</p>
+            </div>
+            <div class="features-grid"> <!-- Reusing grid layout -->
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"The driver was extremely professional. He knew the best routes to Munnar and drove very safely. The car was spotless. Feels just like the service in Dubai."</p>
+                    <div class="client-info">
+                        <h4>Ahmed Khan</h4>
+                        <span>Dubai, UAE</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"My family loved the Innova Crysta. The driver was very polite with my parents and helped with all the luggage at the airport. Highly recommended for NRIs."</p>
+                    <div class="client-info">
+                        <h4>Fatima Salim</h4>
+                        <span>Abu Dhabi, UAE</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="quote">"Booked a BMW for my wedding. The driver arrived 15 mins early in a uniform. Very professional service. Thank you Z1Cars."</p>
+                    <div class="client-info">
+                        <h4>Rahul Menon</h4>
+                        <span>Doha, Qatar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="hero" style="height: 50vh; background-image: url('https://i.ibb.co/Z6LVFjjT/chris-kursikowski-g5g-Apf-Y8gdo-unsplash.jpg');">
+        <div class="hero-content">
+            <h1>Ready for your Homecoming?</h1>
+            <p>Secure your vehicle now. Our fleet is in high demand during peak seasons.</p>
+            <a href="https://wa.me/919645822192?text=Hi%20Z1Cars%2C%20I%20am%20ready%20to%20book." class="btn btn-gold">
+                <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Chat to Reserve
+            </a>
+        </div>
+    </section>
+
+    <!-- Developer Footer -->
+    <footer id="fadils-footer" class="dev-footer">
+        <div class="container">
+            <p style="color: #9ca3af; margin-bottom: 1rem;">Your brand deserves a website this good. Enquire with Fadil Muhammed P.</p>
             <h3>Want a high-impact website like this?</h3>
-            <a href="https://nashrawar-ai.pages.dev" target="_blank" rel="noopener noreferrer" id="cta-button-display" class="cta-button btn-shine btn-liquid-fill btn-3d-press">Work with Fadil</a>
+            <a href="https://nashrawar-ai.pages.dev" target="_blank" rel="noopener noreferrer" class="dev-btn">Work with Fadil</a>
         </div>
     </footer>
-    <script>
-        (function() {
-            const footer = document.getElementById('fadils-footer'); if (!footer) return;
-            const ctaButton = footer.querySelector('#cta-button-display'); const confettiContainer = footer.querySelector('.confetti-container');
-            function triggerConfetti() {
-                if (!confettiContainer) return; confettiContainer.innerHTML = '';
-                const colors = ['#fde68a', '#fca5a5', '#818cf8', '#a78bfa', '#fafafa'];
-                for (let i = 0; i < 50; i++) {
-                    const confetti = document.createElement('div'); confetti.className = 'confetti';
-                    const side = Math.random() < 0.5 ? -1 : 1;
-                    confetti.style.left = (50 + side * (Math.random() * 40 + 10)) + '%';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDelay = (Math.random() * 2) + 's';
-                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    confetti.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
-                    confettiContainer.appendChild(confetti);
-                }
-                setTimeout(() => { if (confettiContainer) { confettiContainer.innerHTML = '' } }, 5000);
-            }
-            if (ctaButton) { ctaButton.addEventListener('mouseenter', triggerConfetti); }
-        })();
-    </script>
-    
+
+    <!-- Main Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>Z1CARS</h3>
-                    <p>Premium car rental service connecting NRIs with luxury transportation in Kerala. Experience the best of both worlds.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com/z1cars.in"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <div>
+                    <img src="https://z1cars.in/logorembg.png" alt="Z1CARS" style="height: 60px; margin-bottom: 1rem;">
+                    <p style="color: #aaa; font-size: 0.9rem;">Kerala's premier driver-driven car rental service dedicated to NRIs. Bridging the gap between Gulf standards and Kerala roads.</p>
+                </div>
+                <div>
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="#fleet-section">Our Fleet</a>
+                        <a href="services.html">Services</a>
+                        <a href="book.html">Booking</a>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="vehicles.html">Our Fleet</a></li>
-                        <li><a href="book.html">Booking</a></li>
-                        
-                        <li><a href="book.html">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Services for NRIs</h3>
-                    <ul class="footer-links">
-                        <li><a href="services.html#airport">Airport Transfers</a></li>
-                        <li><a href="services.html#longterm">Long-term Rentals</a></li>
-                        <li><a href="services.html#chauffeur">Chauffeur Services</a></li>
-                        <li><a href="services.html#wedding">Wedding Cars</a></li>
-                        <li><a href="services.html#business">Business Travel</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Information</h3>
-                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div><strong>Kerala Office:</strong><br>123 Luxury Avenue, Kochi, Kerala</div></div>
-                    <div class="contact-item"><i class="fas fa-phone-alt"></i><div><strong>Phone:</strong><br>+91 96458 221927</div></div>
-                    <div class="contact-item"><i class="fas fa-envelope"></i><div><strong>Email:</strong><br>z1cardeals@gmail.com</div></div>
+                <div>
+                    <h3>Contact Us</h3>
+                    <div class="footer-links">
+                        <a href="tel:+919645822192"><i class="fas fa-phone-alt" style="margin-right: 8px;"></i> +91 96458 22192</a>
+                        <a href="https://wa.me/919645822192"><i class="fab fa-whatsapp" style="margin-right: 8px;"></i> +91 96458 22192</a>
+                        <a href="mailto:z1cardeals@gmail.com"><i class="fas fa-envelope" style="margin-right: 8px;"></i> z1cardeals@gmail.com</a>
+                        <p style="color: #aaa; margin-top: 1rem;"><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> Kochi, Kerala</p>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom"><p>&copy; 2025 Z1CARS. All rights reserved.</p></div>
+            <div class="copyright">
+                &copy; 2025 Z1CARS. All Rights Reserved.
+            </div>
         </div>
     </footer>
-    
-    <a href="https://wa.me/919645822192" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
-    
+
+    <!-- Sticky Mobile Footer -->
+    <div class="mobile-sticky-footer">
+        <a href="tel:+919645822192" class="mobile-btn" style="background: var(--black-luxury); color: white;">
+            <i class="fas fa-phone-alt"></i> Call Now
+        </a>
+        <a href="https://wa.me/919645822192?text=Hi%20Z1Cars%2C%20I%20am%20interested%20in%20a%20car." class="mobile-btn" style="background: #25D366; color: white;">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+    </div>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/919645822192?text=Hi%20Z1Cars%2C%20I%20need%20help." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Config & Scripts -->
     <script>
-        // Global Supabase client
-        let supabaseClient;
-        
-        // Sample vehicle data (unchanged)
-        const sampleVehicles = [ { "idx":2, "id":3, "name":"Range Rover Sport", "year":2019, "brand":"Range Rover", "type":"SUV", "tags":"Available", "image":"https://i.ibb.co/B5RRy44K/Gemini-Generated-Image-igh7epigh7epigh7.png", "standardPackage":"8hrs, 100Kms", "extraKm":"30 INR/km", "extraHour":"800 INR/hr", "rate":"₹35,000/Day", "driverBata":"1000 INR", "created_at":"2025-09-05 19:42:00.207266+00", "updated_at":"2025-09-05 19:42:00.207266+00", "order":2 }, { "idx":3, "id":4, "name":"Porsche Cayenne", "year":2019, "brand":"Porsche", "type":"SUV", "tags":"Available", "image":"https://i.ibb.co/6JD1XL93/Gemini-Generated-Image-vriz2svriz2svriz.png", "standardPackage":"8hrs, 100Kms", "extraKm":"50 INR/km", "extraHour":"800 INR/hr", "rate":"₹35,000/Day", "driverBata":"1000 INR", "created_at":"2025-09-05 19:42:00.207266+00", "updated_at":"2025-09-05 19:42:00.207266+00", "order":5 }, { "idx":4, "id":5, "name":"BMW X5", "year":2022, "brand":"BMW", "type":"SUV", "tags":"Available", "image":"https://i.ibb.co/8nMM7tq7/X5.png", "standardPackage":"8hrs, 100Kms", "extraKm":"40 INR/km", "extraHour":"500 INR/hr", "rate":"₹20,000/Day", "driverBata":"1000 INR", "created_at":"2025-09-05 19:42:00.207266+00", "updated_at":"2025-09-05 19:42:00.207266+00", "order":6 }, { "idx":9, "id":10, "name":"Mercedes GLS 350D", "year":2014, "brand":"Mercedes", "type":"SUV", "tags":"Available", "image":"https://i.ibb.co/27Vd4Lzp/Gemini-Generated-Image-ddm03iddm03iddm0.png", "standardPackage":"8hrs, 100Kms", "extraKm":"50 INR/km", "extraHour":"800 INR/hr", "rate":"₹30,000/Day", "driverBata":"1000 INR", "created_at":"2025-09-05 19:42:00.207266+00", "updated_at":"2025-09-05 19:42:00.207266+00", "order":32 }, { "idx":19, "id":20, "name":"Mahindra Thar (Manual)", "year":2022, "brand":"Mahindra", "type":"SUV", "tags":"Available", "image":"https://i.ibb.co/cK4454sS/Gemini-Generated-Image-4vquxs4vquxs4vqu.png", "standardPackage":"24hrs, 250Kms", "extraKm":"30 INR/km", "extraHour":"500 INR/hr", "rate":"₹3,000/Day", "driverBata":"800 INR", "created_at":"2025-09-05 19:42:00.544168+00", "updated_at":"2025-09-05 19:42:00.544168+00", "order":31 } ];
-
-        function initializeSupabase() {
-            const supabaseUrl = 'https://gvftyxvjdhnnkgiyyaaz.supabase.co';
-            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2ZnR5eHZqZGhubmtnaXl5YWF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwOTU5MzgsImV4cCI6MjA3MjY3MTkzOH0.aj10QULHnPMvfyLoe4usbQ4HFB1dzWqbAmwAlghFmb0';
-            try {
-                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-            } catch (error) {
-                console.error("Failed to initialize Supabase client:", error);
-                supabaseClient = null;
-            }
-        }
-
-        function createVehicleCard(vehicle) {
-            const card = document.createElement('div');
-            card.className = 'vehicle-card';
-            
-            const rateMatch = vehicle.rate ? String(vehicle.rate).match(/(\d[\d,]*)/) : null;
-            const rateDisplay = rateMatch ? `₹${rateMatch[1]}/Day` : 'Inquire for Price';
-
-            card.innerHTML = `
-                ${vehicle.featured ? '<div class="vehicle-badge">Featured</div>' : ''}
-                <div class="vehicle-image">
-                    <img src="${vehicle.image || 'placeholder.jpg'}" alt="${vehicle.name}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=400&auto=format&fit=crop';">
-                </div>
-                <div class="vehicle-details">
-                    <h3>${vehicle.name || 'Luxury Vehicle'}</h3>
-                    <p>${vehicle.brand || 'Premium'} ${vehicle.type || 'Vehicle'} (${vehicle.year || ''})</p>
-                    <div class="vehicle-specs">
-                        <div class="vehicle-spec"><i class="fas fa-car"></i> ${vehicle.type || 'SUV'}</div>
-                        <div class="vehicle-spec"><i class="fas fa-clock"></i> ${vehicle.standardPackage || '8hrs, 100Kms'}</div>
-                    </div>
-                    <div class="vehicle-price">
-                        <div class="price">${rateDisplay}</div>
-                        <a href="book.html" class="vehicle-cta">Book Now</a>
-                    </div>
-                </div>
-            `;
-            return card;
-        }
-
-        function showSampleVehicles(container) {
-            container.innerHTML = '';
-            const warning = document.createElement('div');
-            warning.className = 'warning';
-            warning.innerHTML = '<i class="fas fa-info-circle"></i> Showing our premium vehicle selection. For live availability, please contact us.';
-            container.parentNode.insertBefore(warning, container);
-            sampleVehicles.forEach(vehicle => container.appendChild(createVehicleCard(vehicle)));
-        }
-
-        async function loadFeaturedVehicles() {
-            const container = document.getElementById('featured-vehicles');
-            if (!container) return;
-
-            container.innerHTML = '<div class="loading-indicator"><i class="fas fa-spinner"></i><br>Loading our fleet...</div>';
-            
-            if (!supabaseClient) {
-                console.warn('Supabase client not available. Showing sample vehicles.');
-                showSampleVehicles(container);
-                return;
-            }
-
-            try {
-                const { data, error } = await supabaseClient.from('vehicles').select('*').eq('featured', true).limit(6);
-                if (error) throw error;
-                if (data && data.length > 0) {
-                    container.innerHTML = '';
-                    data.forEach(vehicle => container.appendChild(createVehicleCard(vehicle)));
-                } else {
-                    showSampleVehicles(container);
-                }
-            } catch (error) {
-                console.error('Error loading featured vehicles:', error);
-                showSampleVehicles(container);
-            }
-        }
-
-        // --- Event Listeners and Initializers ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeSupabase();
-            loadFeaturedVehicles();
-            
+        // EMBEDDED CONFIGURATION
+        const SUPABASE_CONFIG = {
+            url: 'https://gvftyxvjdhnnkgiyyaaz.supabase.co',
+            key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2ZnR5eHZqZGhubmtnaXl5YWF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwOTU5MzgsImV4cCI6MjA3MjY3MTkzOH0.aj10QULHnPMvfyLoe4usbQ4HFB1dzWqbAmwAlghFmb0'
+        };
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header Scroll Effect
             const header = document.querySelector('.header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -1105,23 +744,147 @@
                     header.classList.remove('scrolled');
                 }
             });
+
+            // --- Super Portal Logic: Load & Filter Vehicles ---
+            const vehiclesGrid = document.getElementById('vehicles-grid');
+            const searchInput = document.getElementById('search-input');
+            const brandFilter = document.getElementById('brand-filter');
+            const typeFilter = document.getElementById('type-filter');
+            const priceFilter = document.getElementById('price-filter');
+            const resetBtn = document.getElementById('reset-filters');
             
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        window.scrollTo({
-                            top: target.offsetTop - 80, // Offset for sticky header
-                            behavior: 'smooth'
-                        });
+            let allVehicles = [];
+
+            async function fetchAllVehicles() {
+                // Check if Supabase config is present
+                if (typeof SUPABASE_CONFIG === 'undefined' || !SUPABASE_CONFIG.url || !SUPABASE_CONFIG.key) {
+                    vehiclesGrid.innerHTML = '<div class="error">Configuration error. Please contact admin.</div>';
+                    return;
+                }
+
+                const supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+
+                try {
+                    // Fetch ALL live vehicles ordered by custom order
+                    // REMOVED .limit(3) to show full fleet as requested
+                    const { data, error } = await supabase
+                        .from('vehicles')
+                        .select('*')
+                        .eq('is_live', true)
+                        .order('order', { ascending: true });
+
+                    if (error) throw error;
+
+                    allVehicles = data || [];
+                    
+                    if (allVehicles.length > 0) {
+                        displayVehicles(allVehicles);
+                    } else {
+                        vehiclesGrid.innerHTML = '<div class="no-results">No vehicles currently available. Check back soon.</div>';
                     }
+                } catch (err) {
+                    console.error("Error loading vehicles:", err);
+                    vehiclesGrid.innerHTML = '<div class="error">Unable to load fleet. Please check connection.</div>';
+                }
+            }
+
+            function displayVehicles(vehicles) {
+                vehiclesGrid.innerHTML = '';
+                
+                if (vehicles.length === 0) {
+                    vehiclesGrid.innerHTML = '<div class="no-results">No vehicles match your filters.</div>';
+                    return;
+                }
+
+                vehicles.forEach(vehicle => {
+                    const rateValue = vehicle.rate ? parseInt(String(vehicle.rate).replace(/\D/g, '')) : 0;
+                    const whatsappMsg = encodeURIComponent(`Hi Z1Cars, I am interested in booking the ${vehicle.name} (Driver included).`);
+                    
+                    const card = document.createElement('div');
+                    card.className = 'vehicle-card animated-card'; 
+                    card.innerHTML = `
+                        <div class="driver-badge"><i class="fas fa-user-check"></i> Driver Included</div>
+                        <div class="vehicle-image">
+                            <img src="${vehicle.image}" alt="${vehicle.name}" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1000&auto=format&fit=crop'">
+                        </div>
+                        <div class="vehicle-info">
+                            <h3 class="vehicle-title">${vehicle.name}</h3>
+                            <div class="vehicle-specs">
+                                <div class="spec-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>${vehicle.year || '2023'}</span>
+                                </div>
+                                <div class="spec-item">
+                                    <i class="fas fa-car"></i>
+                                    <span>${vehicle.type}</span>
+                                </div>
+                                <div class="spec-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>${vehicle.brand}</span>
+                                </div>
+                            </div>
+                            <div class="price-tag">
+                                ₹${rateValue.toLocaleString()} 
+                                <span class="price-sub"><i class="fas fa-check-circle"></i> per day + Driver Bata</span>
+                            </div>
+                            <div class="vehicle-actions">
+                                <a href="https://wa.me/919645822192?text=${whatsappMsg}" class="btn-card btn-card-whatsapp"><i class="fab fa-whatsapp"></i> Book Now</a>
+                                <a href="book.html?vehicle=${encodeURIComponent(vehicle.name)}" class="btn-card btn-card-primary">Details</a>
+                            </div>
+                        </div>
+                    `;
+                    vehiclesGrid.appendChild(card);
                 });
+            }
+
+            // Filtering Logic
+            function filterVehicles() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedBrand = brandFilter.value;
+                const selectedType = typeFilter.value;
+                const selectedPrice = priceFilter.value;
+
+                const filtered = allVehicles.filter(v => {
+                    const name = v.name || '';
+                    const brand = v.brand || '';
+                    const type = v.type || '';
+                    const rate = v.rate ? parseInt(String(v.rate).replace(/\D/g, '')) : 0;
+
+                    const matchesSearch = name.toLowerCase().includes(searchTerm) || brand.toLowerCase().includes(searchTerm);
+                    const matchesBrand = selectedBrand === '' || brand === selectedBrand;
+                    const matchesType = selectedType === '' || type === selectedType;
+                    
+                    let matchesPrice = true;
+                    if (selectedPrice) {
+                        if (selectedPrice === '0-20000') matchesPrice = rate < 20000;
+                        else if (selectedPrice === '20000-50000') matchesPrice = rate >= 20000 && rate < 50000;
+                        else if (selectedPrice === '50000-100000') matchesPrice = rate >= 50000 && rate < 100000;
+                        else if (selectedPrice === '100000') matchesPrice = rate >= 100000;
+                    }
+                    
+                    return matchesSearch && matchesBrand && matchesType && matchesPrice;
+                });
+
+                displayVehicles(filtered);
+            }
+
+            // Event Listeners
+            searchInput.addEventListener('input', filterVehicles);
+            brandFilter.addEventListener('change', filterVehicles);
+            typeFilter.addEventListener('change', filterVehicles);
+            priceFilter.addEventListener('change', filterVehicles);
+            
+            resetBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                brandFilter.value = '';
+                typeFilter.value = '';
+                priceFilter.value = '';
+                displayVehicles(allVehicles);
             });
+
+            // Initial Fetch
+            fetchAllVehicles();
         });
     </script>
 </body>
-
 </html>
-
-
